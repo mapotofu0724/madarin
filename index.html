@@ -1,0 +1,2646 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>六年級國語｜生字拆解與注音打字高手 (L7-L12)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Noto Sans TC & Noto Serif TC for clear stroke rendering -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background-color: #f1f5f9;
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+    .font-serif-tc {
+      font-family: 'Noto Serif TC', serif;
+    }
+    /* Custom animations */
+    @keyframes popIn {
+      0% { transform: scale(0.85); opacity: 0; }
+      70% { transform: scale(1.04); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .animate-pop {
+      animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .animate-shake {
+      animation: shake 0.35s ease-in-out;
+    }
+    /* Zhuyin Key Active Effect */
+    .zhuyin-key {
+      transition: transform 0.06s ease, box-shadow 0.06s ease, background-color 0.1s ease;
+    }
+    .zhuyin-key:active, .zhuyin-key.key-pressed {
+      transform: translateY(3px) scale(0.97);
+    }
+    /* Custom Scrollbar for Modals */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body class="h-screen w-screen flex flex-col justify-between bg-slate-100 text-slate-800 select-none overflow-hidden">
+
+  <!-- ================= TOP HEADER BAR (Compact for Tablet) ================= -->
+  <header class="w-full bg-white border-b border-slate-200 px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-sm z-20 shrink-0">
+    <!-- Left: App Title & Lesson Selector -->
+    <div class="flex items-center gap-2 flex-wrap">
+      <div class="flex items-center gap-1.5 bg-indigo-600 text-white px-2.5 py-1 rounded-xl font-bold text-sm shadow-sm">
+        <span>🧩</span>
+        <span class="hidden sm:inline">六上生字</span>
+        <span>拆字注音高手</span>
+      </div>
+
+      <!-- Lesson Dropdown -->
+      <select id="lessonSelect" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm rounded-xl px-2.5 py-1.5 border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer">
+        <option value="L7">第七課 (抉擇/蹣跚... 18字)</option>
+        <option value="L8">第八課 (火焰/瞬間... 19字)</option>
+        <option value="L9">第九課 (顛簸/鞏固... 19字)</option>
+        <option value="L10">第十課 (傾聽/風靡... 18字)</option>
+        <option value="L11">第十一課 (感激涕零/擤... 18字)</option>
+        <option value="L12">第十二課 (拮据/囁嚅... 19字)</option>
+        <option value="ALL">🌟 七～十二課 總複習隨機抽 (30題)</option>
+        <option value="RADICAL">🎨 同部首家族特訓 (課本加底色生字)</option>
+      </select>
+
+      <!-- Mode Selector -->
+      <div class="flex bg-slate-100 p-0.5 rounded-xl border border-slate-200 flex-wrap gap-0.5">
+        <button data-mode="1" class="mode-btn px-2 py-1 rounded-lg text-xs font-bold transition bg-indigo-600 text-white shadow-sm" title="看拆字結構＋敲擊注音">
+          🌱 觀察拆字
+        </button>
+        <button data-mode="2" class="mode-btn px-2 py-1 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900" title="先挑出正確部件組字，再打注音">
+          🧩 部件組裝
+        </button>
+        <button data-mode="3" class="mode-btn px-2 py-1 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900" title="遮住生字本尊，看拆字公式猜字打音">
+          🕵️ 拆字盲打
+        </button>
+        <button data-mode="5" class="mode-btn px-2 py-1 rounded-lg text-xs font-bold transition text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200" title="方案D：短文語境填空＋部件解謎破案">
+          🔍 字義偵探社
+        </button>
+        <button data-mode="4" class="mode-btn px-2 py-1 rounded-lg text-xs font-bold transition text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-200" title="方案C：60秒街機限時隕石防衛戰！">
+          ☄️ 隕石防衛戰
+        </button>
+        <button data-mode="6" class="mode-btn px-2.5 py-1 rounded-lg text-xs font-bold transition text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300" title="第七～十二課全生字複習與遮罩自測專頁">
+          📚 生字總複習
+        </button>
+      </div>
+    </div>
+
+    <!-- Right: Seat Selector, Keyboard Size, Mistake Bank, Stats & Controls -->
+    <div class="flex items-center gap-1.5 flex-wrap">
+      <!-- Keyboard Size Toggle -->
+      <button id="kbSizeBtn" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 px-2 py-1 rounded-xl text-xs font-bold transition flex items-center gap-1" title="切換虛擬鍵盤在螢幕上的高度比例">
+        <span>📐 鍵盤:</span>
+        <span id="kbSizeLabel" class="text-indigo-600 font-black">適中</span>
+      </button>
+
+      <!-- Seat Selector -->
+      <div class="flex items-center bg-slate-100 rounded-xl px-2 py-1 border border-slate-200 text-xs">
+        <span class="text-slate-500 font-medium mr-1">座號:</span>
+        <select id="seatSelect" class="bg-transparent font-bold text-indigo-700 focus:outline-none cursor-pointer">
+          <!-- Populated by JS 1-22 -->
+        </select>
+      </div>
+
+      <!-- Mistake Review Button -->
+      <button id="mistakeModeBtn" class="relative bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-2 py-1 rounded-xl text-xs font-bold flex items-center gap-1 transition">
+        <span>🔥 錯字本</span>
+        <span id="mistakeCountBadge" class="bg-rose-600 text-white text-xs px-1.5 py-0.2 rounded-full font-extrabold">0</span>
+      </button>
+
+      <!-- Dictionary / Overview Modal Button -->
+      <button id="openDictBtn" class="bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 px-2 py-1 rounded-xl text-xs font-bold flex items-center gap-1 transition" title="快速彈出本課拆字圖鑑">
+        <span>📖 圖鑑</span>
+      </button>
+
+      <!-- Sound Toggle -->
+      <button id="soundToggleBtn" class="bg-slate-100 hover:bg-slate-200 text-slate-700 p-1 rounded-xl border border-slate-200 text-xs" title="音效開關">
+        🔊
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= MIDDLE STAGE: CHARACTER & DECOMPOSITION WORKSPACE ================= -->
+  <main class="flex-1 min-h-0 w-full max-w-6xl mx-auto px-3 py-1.5 flex flex-col justify-between gap-1.5 overflow-hidden">
+    
+    <!-- Progress & Score Strip (Shown in Modes 1, 2, 3, 5) -->
+    <div id="standardProgressBarStrip" class="w-full flex items-center justify-between gap-3 bg-white/80 backdrop-blur px-3 py-1 rounded-xl border border-slate-200/80 shrink-0">
+      <div class="flex items-center gap-2 flex-1">
+        <span id="progressText" class="text-xs sm:text-sm font-extrabold text-slate-700 whitespace-nowrap">進度 1 / 18</span>
+        <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+          <div id="progressBar" class="bg-indigo-600 h-full rounded-full transition-all duration-300" style="width: 5%;"></div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 text-xs sm:text-sm font-bold shrink-0">
+        <div class="flex items-center gap-1 text-amber-600 bg-amber-50 px-2 py-0.5 rounded-lg border border-amber-200">
+          <span>⚡ 連擊</span>
+          <span id="comboDisplay" class="font-black text-base">0</span>
+        </div>
+        <div class="flex items-center gap-1 text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-lg border border-indigo-200">
+          <span>🏆 得分</span>
+          <span id="scoreDisplay" class="font-black text-base">0</span>
+        </div>
+        <button id="skipBtn" class="text-xs text-slate-500 hover:text-indigo-600 underline font-semibold px-1">跳過此字</button>
+      </div>
+    </div>
+
+    <!-- Main Interactive Card (Modes 1, 2, 3) -->
+    <div id="questionCard" class="flex-1 min-h-0 bg-white rounded-2xl border-2 border-slate-200 shadow-sm p-2.5 sm:p-4 grid grid-cols-12 gap-3 items-center relative overflow-hidden">
+      
+      <!-- Left Column (Cols 4 on tablet/desktop, 5 on small): Target Character Box & Phrase -->
+      <div class="col-span-5 sm:col-span-4 h-full flex flex-col items-center justify-center border-r border-slate-100 pr-2 relative">
+        
+        <!-- Lesson & Radical Family Badge -->
+        <div class="w-full flex items-center justify-between gap-1 mb-1">
+          <span id="charLessonTag" class="text-[11px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md">第七課</span>
+          <span id="radicalFamilyTag" class="hidden text-[11px] font-bold bg-amber-100 text-amber-800 border border-amber-300 px-2 py-0.5 rounded-md animate-pulse">
+            ★ 同部首家族：手部
+          </span>
+        </div>
+
+        <!-- Huge Character Display (or Mystery Box in Mode 3) -->
+        <div id="charBoxContainer" class="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-2xl bg-slate-50 border-2 border-slate-300 flex items-center justify-center shadow-inner my-0.5">
+          <!-- Decorative米字格 lines -->
+          <div class="absolute inset-0 pointer-events-none opacity-20">
+            <div class="w-full h-1/2 border-b border-dashed border-rose-500"></div>
+            <div class="h-full w-1/2 border-r border-dashed border-rose-500 absolute top-0 left-0"></div>
+          </div>
+
+          <span id="targetCharDisplay" class="font-serif-tc text-6xl sm:text-7xl md:text-8xl font-black text-slate-800 z-10 leading-none select-none">
+            抉
+          </span>
+        </div>
+
+        <!-- Example Phrase & Same-Radical Classmates -->
+        <div class="mt-1 text-center">
+          <div id="phraseDisplay" class="text-sm sm:text-base md:text-lg font-extrabold text-indigo-900 bg-indigo-50 px-3 py-0.5 rounded-xl border border-indigo-200 inline-block">
+            語詞：【抉】擇
+          </div>
+          <div id="sameRadicalCousins" class="text-[11px] text-amber-700 font-semibold mt-0.5 hidden">
+            同課家族：抉、擇、抽、搔
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column (Cols 7 on small, 8 on tablet): Decomposition Workshop & Active Zhuyin Input -->
+      <div class="col-span-7 sm:col-span-8 h-full flex flex-col justify-between pl-1 overflow-y-auto">
+        
+        <!-- Detective Context Cloze Banner (Shown ONLY in Mode 5 🔍 字義偵探社) -->
+        <div id="detectiveContextBox" class="hidden bg-amber-50 border-2 border-amber-300 rounded-xl p-2 sm:p-2.5 mb-1 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-0.5">
+            <span class="text-[11px] font-black bg-amber-600 text-white px-2 py-0.5 rounded-md flex items-center gap-1">
+              🕵️‍♂️ 字義偵探社｜短文語境破案線索
+            </span>
+            <button id="toggleDetectiveTipBtn" type="button" class="text-[11px] font-bold text-amber-800 hover:text-amber-950 underline">
+              💡 展開/隱藏拆字口訣
+            </button>
+          </div>
+          <p id="detectiveSentenceDisplay" class="text-sm sm:text-base font-black text-slate-800 leading-snug mt-0.5">
+            在人生的十字路口，我們必須謹慎做出【 ？ 】擇，才不會後悔。
+          </p>
+        </div>
+
+        <!-- Top Section: Decomposition (拆字結構與積木) -->
+        <div class="bg-slate-50 rounded-xl p-2 sm:p-2.5 border border-slate-200">
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <div class="flex items-center gap-1.5">
+              <span class="text-xs font-extrabold uppercase tracking-wider bg-teal-600 text-white px-2 py-0.5 rounded-md" id="structureBadge">
+                左右結構
+              </span>
+              <span id="decompInstruction" class="text-xs sm:text-sm font-bold text-slate-700">
+                拆字記憶積木：
+              </span>
+            </div>
+            <button id="hintBtn" class="text-xs bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold px-2 py-0.5 rounded-lg border border-amber-300 transition">
+              💡 偷看注音提示
+            </button>
+          </div>
+
+          <!-- Decomposition Blocks Area -->
+          <div id="decompArea" class="flex flex-wrap items-center gap-1.5 sm:gap-2 my-1 min-h-[38px]">
+            <!-- Populated dynamically by JS -->
+          </div>
+
+          <!-- Memory Tip / Mnemonic -->
+          <p id="memoryTipDisplay" class="text-xs text-slate-600 font-medium bg-white px-2.5 py-1 rounded-lg border border-slate-200/80 mt-1">
+            💡 記憶法：左邊提手旁，右邊是夬（決的右半邊）
+          </p>
+        </div>
+
+        <!-- Bottom Section: Zhuyin Spelling Slots & Status Feedback -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-2 bg-indigo-50/70 rounded-xl p-2 border border-indigo-100 mt-1">
+          
+          <div class="flex items-center gap-1.5">
+            <span class="text-xs sm:text-sm font-extrabold text-indigo-900 mr-1">注音拼讀：</span>
+            
+            <!-- 4 Phonetic Slots: 聲母 / 介音 / 韻母 / 聲調 -->
+            <div class="flex items-center gap-1.5">
+              <div id="slotInitial" class="w-9 h-10 sm:w-11 sm:h-11 rounded-xl bg-white border-2 border-blue-300 flex flex-col items-center justify-center shadow-sm">
+                <span class="text-[9px] text-blue-500 font-bold leading-none">聲母</span>
+                <span class="slot-val text-base sm:text-lg font-black text-blue-800 leading-tight mt-0.5"></span>
+              </div>
+              <div id="slotMedial" class="w-9 h-10 sm:w-11 sm:h-11 rounded-xl bg-white border-2 border-teal-300 flex flex-col items-center justify-center shadow-sm">
+                <span class="text-[9px] text-teal-600 font-bold leading-none">介音</span>
+                <span class="slot-val text-base sm:text-lg font-black text-teal-800 leading-tight mt-0.5"></span>
+              </div>
+              <div id="slotFinal" class="w-9 h-10 sm:w-11 sm:h-11 rounded-xl bg-white border-2 border-indigo-300 flex flex-col items-center justify-center shadow-sm">
+                <span class="text-[9px] text-indigo-500 font-bold leading-none">韻母</span>
+                <span class="slot-val text-base sm:text-lg font-black text-indigo-800 leading-tight mt-0.5"></span>
+              </div>
+              <div id="slotTone" class="w-9 h-10 sm:w-11 sm:h-11 rounded-xl bg-white border-2 border-amber-300 flex flex-col items-center justify-center shadow-sm">
+                <span class="text-[9px] text-amber-600 font-bold leading-none">聲調</span>
+                <span class="slot-val text-base sm:text-lg font-black text-amber-700 leading-tight mt-0.5"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feedback Message & Quick Action -->
+          <div id="feedbackBanner" class="text-xs sm:text-sm font-bold px-3 py-1 rounded-xl bg-white text-slate-600 border border-slate-200 shadow-sm text-center min-w-[160px]">
+            請依序點擊下方注音與聲調送出
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= MODE 6: DEDICATED FULL-PAGE REVIEW HUB (📚 生字總複習 L7~L12) ================= -->
+    <div id="reviewPageContainer" class="hidden flex-1 min-h-0 bg-white rounded-2xl border-2 border-emerald-300 shadow-sm flex flex-col overflow-hidden">
+      <!-- Top Filter & Self-Test Mask Bar -->
+      <div class="bg-emerald-50/90 border-b border-emerald-200 px-3 py-2 flex flex-wrap items-center justify-between gap-2 shrink-0">
+        <!-- Lesson & Category Filter Pills -->
+        <div class="flex items-center gap-1 flex-wrap">
+          <span class="text-xs font-black text-emerald-900 mr-1">📚 範圍：</span>
+          <button data-rev-filter="ALL" class="rev-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow-sm">全部(113字)</button>
+          <button data-rev-filter="L7" class="rev-filter-btn px-2 py-1 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100">第七課</button>
+          <button data-rev-filter="L8" class="rev-filter-btn px-2 py-1 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100">第八課</button>
+          <button data-rev-filter="L9" class="rev-filter-btn px-2 py-1 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100">第九課</button>
+          <button data-rev-filter="L10" class="rev-filter-btn px-2 py-1 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100">第十課</button>
+          <button data-rev-filter="L11" class="rev-filter-btn px-2 py-1 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100">第十一課</button>
+          <button data-rev-filter="L12" class="rev-filter-btn px-2 py-1 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100">第十二課</button>
+          <button data-rev-filter="RADICAL" class="rev-filter-btn px-2 py-1 rounded-lg text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200">⭐ 同部首家族</button>
+          <button data-rev-filter="MISTAKE" class="rev-filter-btn px-2 py-1 rounded-lg text-xs font-bold bg-rose-100 text-rose-800 border border-rose-300 hover:bg-rose-200">🔥 我的錯字</button>
+        </div>
+
+        <!-- Search & Self-Test Mask Toggles -->
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <input id="reviewSearchInput" type="text" placeholder="搜尋生字、部首或部件..." class="text-xs px-2.5 py-1 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 w-36 sm:w-44 select-text" />
+          <button id="maskZhuyinBtn" class="px-2 py-1 rounded-lg text-xs font-bold bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 transition" title="遮住注音自我檢測，點擊單卡可翻開">
+            🙈 遮住注音
+          </button>
+          <button id="maskCharBtn" class="px-2 py-1 rounded-lg text-xs font-bold bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 transition" title="遮住國字看拆字與例句猜字">
+            🙈 遮住國字
+          </button>
+          <button id="maskPartsBtn" class="px-2 py-1 rounded-lg text-xs font-bold bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 transition" title="遮住拆字公式練習結構拆解">
+            🙈 遮住拆字
+          </button>
+        </div>
+      </div>
+
+      <!-- Review Sub-banner info -->
+      <div class="bg-slate-50 px-3 py-1 border-b border-slate-200 flex items-center justify-between text-xs text-slate-600 shrink-0">
+        <span id="reviewCountInfo" class="font-bold">目前顯示：113 個生字（點擊被遮罩的欄位可單獨翻開對答案！）</span>
+        <span class="text-emerald-700 font-bold hidden sm:inline">💡 複習模式下已自動收起底部鍵盤，點擊卡片右下角「🎯 單字特訓」可立即練打該字</span>
+      </div>
+
+      <!-- Scrollable Cards Grid -->
+      <div id="reviewCardsGrid" class="flex-1 min-h-0 overflow-y-auto p-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 bg-slate-100/70">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ================= MODE 4: METEOR DEFENSE ARENA (☄️ 隕石防衛戰) ================= -->
+    <div id="meteorArenaContainer" class="hidden flex-1 min-h-0 bg-slate-950 rounded-2xl border-2 border-purple-500/60 shadow-lg flex flex-col justify-between relative overflow-hidden select-none">
+      
+      <!-- Top Space HUD Bar -->
+      <div class="w-full bg-slate-900/90 backdrop-blur border-b border-slate-800 px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 z-20 shrink-0">
+        <!-- Left: Shield HP, Timer, Score & Combo -->
+        <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+          <div class="flex items-center gap-1 bg-slate-800 px-2.5 py-0.5 rounded-xl border border-slate-700" title="地球基地護盾值">
+            <span class="text-[11px] font-bold text-slate-300">護盾</span>
+            <span id="meteorHpDisplay" class="text-xs sm:text-sm tracking-tight">❤️❤️❤️❤️❤️</span>
+          </div>
+          <div class="flex items-center gap-1 bg-slate-800 px-2.5 py-0.5 rounded-xl border border-slate-700">
+            <span class="text-[11px] font-bold text-cyan-400">⏱️ 倒數</span>
+            <span id="meteorTimerDisplay" class="text-sm sm:text-base font-black text-white font-mono">60s</span>
+          </div>
+          <div class="flex items-center gap-1 bg-slate-800 px-2.5 py-0.5 rounded-xl border border-slate-700">
+            <span class="text-[11px] font-bold text-amber-400">⚡ 連擊</span>
+            <span id="meteorComboDisplay" class="text-sm sm:text-base font-black text-amber-300">0</span>
+          </div>
+          <div class="flex items-center gap-1 bg-slate-800 px-2.5 py-0.5 rounded-xl border border-slate-700">
+            <span class="text-[11px] font-bold text-purple-300">🏆 戰績</span>
+            <span id="meteorScoreDisplay" class="text-sm sm:text-base font-black text-purple-200">0</span>
+          </div>
+        </div>
+
+        <!-- Right: Speed Selector, Puzzle Meteor Toggle & Pause -->
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <div class="flex items-center bg-slate-800 p-0.5 rounded-lg border border-slate-700 text-[11px] font-bold">
+            <button data-speed="slow" class="meteor-speed-btn px-2 py-0.5 rounded-md bg-purple-600 text-white transition">🐢 慢速</button>
+            <button data-speed="normal" class="meteor-speed-btn px-2 py-0.5 rounded-md text-slate-300 hover:text-white transition">🚀 標準</button>
+            <button data-speed="fast" class="meteor-speed-btn px-2 py-0.5 rounded-md text-slate-300 hover:text-white transition">🔥 極速</button>
+          </div>
+
+          <label class="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-purple-200 px-2 py-1 rounded-lg border border-slate-700 text-[11px] font-bold cursor-pointer">
+            <input type="checkbox" id="puzzleMeteorToggle" checked class="accent-purple-500 rounded cursor-pointer" />
+            <span>🧩 混出拆字謎題隕石</span>
+          </label>
+
+          <button id="meteorPauseBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 px-2.5 py-0.5 rounded-lg text-xs font-bold transition hidden">
+            ⏸ 暫停
+          </button>
+        </div>
+      </div>
+
+      <!-- Middle Sky Canvas & DOM Meteor Layer -->
+      <div id="meteorSkyStage" class="flex-1 min-h-0 w-full relative overflow-hidden">
+        <!-- Starfield & Laser Canvas -->
+        <canvas id="meteorFxCanvas" class="absolute inset-0 w-full h-full pointer-events-none z-10"></canvas>
+
+        <!-- Freeze Overlay Indicator -->
+        <div id="freezeOverlayBadge" class="hidden absolute top-2 left-1/2 -translate-x-1/2 z-20 bg-cyan-500/90 text-slate-950 font-black text-xs px-3 py-1 rounded-full shadow-lg animate-pulse">
+          ❄️ 寒冰減速生效中！全場隕石慢動作
+        </div>
+
+        <!-- Dynamic Falling Meteors Layer -->
+        <div id="meteorDomLayer" class="absolute inset-0 w-full h-full z-10 overflow-hidden"></div>
+
+        <!-- Earth Defense Base Turret Visual at Bottom Center -->
+        <div class="absolute bottom-0 inset-x-0 h-3 bg-gradient-to-t from-indigo-900/90 to-transparent pointer-events-none z-10"></div>
+        <div id="laserTurretEl" class="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-5 bg-indigo-500 border-2 border-cyan-300 rounded-t-full shadow-lg flex items-center justify-center z-10 pointer-events-none">
+          <div class="w-3 h-3 rounded-full bg-cyan-200 animate-ping"></div>
+        </div>
+
+        <!-- Start / Game Over Overlay inside Sky Stage -->
+        <div id="meteorOverlayScreen" class="absolute inset-0 bg-slate-950/85 backdrop-blur-sm z-30 flex flex-col items-center justify-center p-4 text-center">
+          <div class="max-w-md bg-slate-900 border-2 border-purple-500/80 rounded-2xl p-4 sm:p-5 shadow-2xl">
+            <div class="text-3xl sm:text-4xl mb-1">☄️🛡️🚀</div>
+            <h3 id="meteorOverlayTitle" class="text-lg sm:text-xl font-black text-white">生字隕石防衛戰 (60秒挑戰)</h3>
+            <p id="meteorOverlayDesc" class="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
+              生字與拆字隕石即將襲擊地球基地！系統會用<span class="text-rose-400 font-bold">紅色準星</span>自動鎖定最靠近地面的隕石（也可手動點擊切換目標），請在下方注音鍵盤快速拼出讀音並按聲調發射雷射擊破！
+            </p>
+            <div class="flex flex-wrap justify-center gap-2 text-[11px] text-slate-300 my-2.5 bg-slate-800/90 p-2 rounded-xl border border-slate-700">
+              <span>🧩 <b class="text-purple-300">拆字謎題隕石</b>：2倍積分</span>
+              <span>❄️ <b class="text-cyan-300">寒冰隕石</b>：減速5秒</span>
+              <span>❤️ <b class="text-rose-300">護盾隕石</b>：回復生命</span>
+            </div>
+            <button id="startMeteorGameBtn" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black py-2.5 px-6 rounded-xl shadow-lg text-sm sm:text-base transition transform active:scale-95">
+              🚀 啟動防衛戰 (60秒)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Radar Target Lock HUD Bar (Right above Zhuyin Keyboard!) -->
+      <div class="w-full bg-slate-900 border-t border-slate-800 px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 z-20 shrink-0">
+        <!-- Locked Meteor Info -->
+        <div class="flex items-center gap-2">
+          <span class="bg-rose-600 text-white text-[11px] font-black px-2 py-0.5 rounded-md flex items-center gap-1">
+            <span>🎯 雷達鎖定</span>
+          </span>
+          <div id="radarTargetChar" class="text-base sm:text-lg font-black text-amber-300">
+            等待啟動...
+          </div>
+          <div id="radarTargetParts" class="text-xs font-bold text-cyan-300 bg-slate-800 px-2 py-0.5 rounded-lg border border-slate-700">
+            拆字：—
+          </div>
+          <div id="radarTargetPhrase" class="hidden md:inline-block text-xs font-bold text-slate-300">
+            語詞：—
+          </div>
+        </div>
+
+        <!-- Current Zhuyin Input Mirror for Meteor Mode -->
+        <div class="flex items-center gap-1.5">
+          <span class="text-[11px] font-bold text-slate-400">輸入注音：</span>
+          <div class="flex items-center gap-1">
+            <span id="mSlot0" class="w-7 h-7 rounded-lg bg-slate-800 border border-blue-400/60 text-blue-300 font-black text-sm flex items-center justify-center"></span>
+            <span id="mSlot1" class="w-7 h-7 rounded-lg bg-slate-800 border border-teal-400/60 text-teal-300 font-black text-sm flex items-center justify-center"></span>
+            <span id="mSlot2" class="w-7 h-7 rounded-lg bg-slate-800 border border-indigo-400/60 text-indigo-300 font-black text-sm flex items-center justify-center"></span>
+            <span id="mSlot3" class="w-7 h-7 rounded-lg bg-slate-800 border border-amber-400/60 text-amber-300 font-black text-sm flex items-center justify-center"></span>
+          </div>
+          <span id="meteorRadarFeedback" class="text-xs font-bold text-emerald-400 ml-1 min-w-[120px] text-right">
+            點選聲調立即發射雷射！
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ================= BOTTOM WORKSPACE: COMPACT BUILT-IN ZHUYIN KEYBOARD ================= -->
+  <section id="keyboardSection" class="w-full h-[31vh] sm:h-[29vh] bg-slate-800 text-white px-2 py-1.5 flex flex-col justify-between shadow-2xl z-20 shrink-0 transition-all duration-200">
+    <!-- Centered & Max-Width Constrained so Desktop & Tablet don't look stretched -->
+    <div id="keyboardInnerWrap" class="w-full max-w-[720px] mx-auto h-full flex flex-col justify-between gap-1">
+      
+      <!-- Top Legend & Tone Bar (聲調區 + 退格 + 確認送出) -->
+      <div class="grid grid-cols-7 gap-1 h-[21%]">
+        <button data-tone="1" class="tone-key zhuyin-key col-span-2 bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-slate-950 font-black rounded-lg shadow border-b-2 border-amber-700 flex items-center justify-center gap-1 leading-none">
+          <span class="text-xs sm:text-sm">一聲 (陰平)</span>
+          <span class="text-[9px] font-bold opacity-75 hidden sm:inline">空白鍵送出</span>
+        </button>
+        <button data-tone="ˊ" class="tone-key zhuyin-key bg-amber-400 hover:bg-amber-300 text-slate-950 font-black rounded-lg shadow border-b-2 border-amber-600 flex items-center justify-center gap-1">
+          <span class="text-base sm:text-lg leading-none">ˊ</span>
+          <span class="text-[10px] font-bold">二聲</span>
+        </button>
+        <button data-tone="ˇ" class="tone-key zhuyin-key bg-amber-400 hover:bg-amber-300 text-slate-950 font-black rounded-lg shadow border-b-2 border-amber-600 flex items-center justify-center gap-1">
+          <span class="text-base sm:text-lg leading-none">ˇ</span>
+          <span class="text-[10px] font-bold">三聲</span>
+        </button>
+        <button data-tone="ˋ" class="tone-key zhuyin-key bg-amber-400 hover:bg-amber-300 text-slate-950 font-black rounded-lg shadow border-b-2 border-amber-600 flex items-center justify-center gap-1">
+          <span class="text-base sm:text-lg leading-none">ˋ</span>
+          <span class="text-[10px] font-bold">四聲</span>
+        </button>
+        <button data-tone="˙" class="tone-key zhuyin-key bg-amber-400 hover:bg-amber-300 text-slate-950 font-black rounded-lg shadow border-b-2 border-amber-600 flex items-center justify-center gap-1">
+          <span class="text-base sm:text-lg leading-none">˙</span>
+          <span class="text-[10px] font-bold">輕聲</span>
+        </button>
+        <button id="backspaceKey" class="zhuyin-key bg-rose-600 hover:bg-rose-500 text-white font-black rounded-lg shadow border-b-2 border-rose-800 flex items-center justify-center gap-1">
+          <span class="text-xs sm:text-sm leading-none">⌫ 清除</span>
+        </button>
+      </div>
+
+      <!-- Main Phonetic Keys Grid (4 Rows x 10 Columns Daqian Standard Layout) -->
+      <div id="phoneticGrid" class="flex-1 grid grid-rows-4 gap-1">
+        <!-- Rendered via JS -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= MODAL 1: LESSON DICTIONARY & DECOMPOSITION TABLE (拆字圖鑑) ================= -->
+  <div id="dictModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-white w-full max-w-5xl max-h-[90vh] rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-pop">
+      <div class="bg-indigo-600 text-white px-4 py-3 flex items-center justify-between">
+        <div>
+          <h2 class="text-lg sm:text-xl font-black flex items-center gap-2">
+            <span>📖 生字部件拆解與同部首圖鑑</span>
+            <span id="dictModalSubtitle" class="text-xs bg-indigo-800 px-2.5 py-0.5 rounded-full font-semibold">第七課</span>
+          </h2>
+          <p class="text-xs text-indigo-100 mt-0.5">點擊任一張生字卡，可直接跳轉練習該生字！標示黃底者為課本生字表「同部首家族」。</p>
+        </div>
+        <button id="closeDictBtn" class="bg-white/20 hover:bg-white/30 text-white rounded-xl px-3 py-1 font-bold text-sm">✕ 關閉</button>
+      </div>
+      
+      <div id="dictGridContainer" class="p-4 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 bg-slate-50">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 2: COMPLETION CERTIFICATE (過關結算證書) ================= -->
+  <div id="resultModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl border-4 border-amber-400 p-6 text-center animate-pop">
+      <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-2 shadow-sm">
+        🏅
+      </div>
+      <h2 class="text-2xl font-black text-slate-800">恭喜完成本回拆字注音挑戰！</h2>
+      <p id="resultStudentInfo" class="text-sm font-bold text-indigo-600 mt-1">六年級 座號：1號 ｜ 第七課</p>
+
+      <div class="grid grid-cols-3 gap-2 my-4 bg-slate-50 p-3 rounded-2xl border border-slate-200">
+        <div>
+          <div class="text-xs text-slate-500 font-bold">總得分</div>
+          <div id="finalScoreVal" class="text-2xl font-black text-indigo-600">1800</div>
+        </div>
+        <div>
+          <div class="text-xs text-slate-500 font-bold">最高連擊</div>
+          <div id="finalComboVal" class="text-2xl font-black text-amber-600">18</div>
+        </div>
+        <div>
+          <div class="text-xs text-slate-500 font-bold">待複習錯字</div>
+          <div id="finalMistakeVal" class="text-2xl font-black text-rose-600">0</div>
+        </div>
+      </div>
+
+      <div id="resultMistakeListWrapper" class="hidden text-left bg-rose-50 border border-rose-200 rounded-xl p-3 mb-4">
+        <div class="text-xs font-extrabold text-rose-800 mb-1">📌 本回需要多留意的生字拆解：</div>
+        <div id="resultMistakeList" class="flex flex-wrap gap-1.5"></div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-2 mt-2">
+        <button id="retryAllBtn" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 px-4 rounded-xl shadow">
+          🔄 再練一次本課
+        </button>
+        <button id="practiceMistakesFromModalBtn" class="hidden flex-1 bg-rose-600 hover:bg-rose-500 text-white font-bold py-2.5 px-4 rounded-xl shadow">
+          🔥 立即專練錯字
+        </button>
+        <button id="closeResultModalBtn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 px-4 rounded-xl">
+          關閉
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= APPLICATION JAVASCRIPT ================= -->
+  <script>
+    /*************************************************************************
+     * 1. COMPLETE VOCABULARY & DECOMPOSITION DATABASE (Lessons 7 to 12)
+     * Source: 115國小國語6上課本PDF_生字表 (Pages 3 & 4)
+     * Every character uses normalized Zhuyin string + optional altZhuyin
+     *************************************************************************/
+    const VOCAB_DB = [
+      // ==================== 第七課 (18字) ====================
+      { lesson: 'L7', char: '抉', zhuyin: 'ㄐㄩㄝˊ', phrase: '【抉】擇', structure: '左右結構', parts: ['扌(手)', '夬'], radicalGroup: '手部', tip: '手部家族！左邊提手旁「扌」，右邊是「夬」（注意最後一筆是長捺，與決相同）。' },
+      { lesson: 'L7', char: '擇', zhuyin: 'ㄗㄜˊ', phrase: '抉【擇】', structure: '左右結構', parts: ['扌(手)', '罒(橫目)', '幸'], radicalGroup: '手部', tip: '手部家族！用手挑選，左邊是「扌」，右邊是橫目「罒」加上幸福的「幸」。' },
+      { lesson: 'L7', char: '抽', zhuyin: 'ㄔㄡ', phrase: '【抽】芽', structure: '左右結構', parts: ['扌(手)', '由'], radicalGroup: '手部', tip: '手部家族！左邊提手旁「扌」，右邊是由來的「由」。' },
+      { lesson: 'L7', char: '搔', zhuyin: 'ㄙㄠ', phrase: '【搔】癢', structure: '左右結構', parts: ['扌(手)', '叉(又+丶)', '虫'], radicalGroup: '手部', tip: '手部家族！左邊「扌」，右邊是跳蚤的「蚤」（上面是叉，下面是虫）。' },
+      { lesson: 'L7', char: '跆', zhuyin: 'ㄊㄞˊ', phrase: '【跆】拳道', structure: '左右結構', parts: ['足', '台(厶+口)'], radicalGroup: '足部', tip: '足部家族！用腳踢擊，左邊是「足」，右邊是台灣的「台」。' },
+      { lesson: 'L7', char: '蹣', zhuyin: 'ㄇㄢˊ', phrase: '【蹣】跚', structure: '左右結構', parts: ['足', '艹', '兩'], radicalGroup: '足部', tip: '足部家族！左邊是「足」，右邊與「滿、瞞」的右半邊相同（艹＋兩）。' },
+      { lesson: 'L7', char: '跚', zhuyin: 'ㄕㄢ', phrase: '蹣【跚】', structure: '左右結構', parts: ['足', '冊'], radicalGroup: '足部', tip: '足部家族！左邊是「足」，右邊是一冊書的「冊」，形容步伐搖晃不穩。' },
+      { lesson: 'L7', char: '芭', zhuyin: 'ㄅㄚ', phrase: '【芭】樂', structure: '上下結構', parts: ['艹(艸)', '巴'], radicalGroup: '艸部', tip: '艸部家族！上面是草字頭「艹」，下面是下巴的「巴」（芭蕉、芭樂）。' },
+      { lesson: 'L7', char: '芽', zhuyin: 'ㄧㄚˊ', phrase: '嫩【芽】', structure: '上下結構', parts: ['艹(艸)', '牙'], radicalGroup: '艸部', tip: '艸部家族！上面是草字頭「艹」，下面是牙齒的「牙」。' },
+      { lesson: 'L7', char: '犧', zhuyin: 'ㄒㄧ', phrase: '【犧】牲', structure: '左右結構', parts: ['牜(牛)', '羊+秀', '戈'], radicalGroup: '牛部', tip: '牛部家族！左邊是「牜」，右邊是「羲」（上面羊，左下禾與巧，右邊戈）。' },
+      { lesson: 'L7', char: '牲', zhuyin: 'ㄕㄥ', phrase: '犧【牲】', structure: '左右結構', parts: ['牜(牛)', '生'], radicalGroup: '牛部', tip: '牛部家族！左邊是牛字旁「牜」，右邊是生命的「生」。' },
+      { lesson: 'L7', char: '勞', zhuyin: 'ㄌㄠˊ', altZhuyin: ['ㄌㄠˋ'], phrase: '辛【勞】', structure: '上下結構', parts: ['炏(雙火)', '冖', '力'], radicalGroup: null, tip: '上面是兩個「火」加禿寶蓋「冖」，下面是力氣的「力」（出力流汗）。' },
+      { lesson: 'L7', char: '叢', zhuyin: 'ㄘㄨㄥˊ', phrase: '草【叢】', structure: '上下結構', parts: ['丵(業上)', '取(耳+又)'], radicalGroup: null, tip: '上面是「業」的上半部，下面是爭取的「取」（耳＋又），指聚集生長。' },
+      { lesson: 'L7', char: '履', zhuyin: 'ㄌㄩˇ', phrase: '步【履】', structure: '半包圍', parts: ['尸', '彳', '復(右半)'], radicalGroup: null, tip: '外面是「尸」，裡面左邊是雙人旁「彳」，右邊是「𠂉＋日＋夂」。' },
+      { lesson: 'L7', char: '灶', zhuyin: 'ㄗㄠˋ', phrase: '爐【灶】', structure: '左右結構', parts: ['火', '土'], radicalGroup: null, tip: '左邊是「火」，右邊是「土」，以前用泥土砌成生火煮飯的地方就是灶。' },
+      { lesson: 'L7', char: '壤', zhuyin: 'ㄖㄤˇ', phrase: '土【壤】', structure: '左右結構', parts: ['土', '亠+口+口', '衣(下)'], radicalGroup: null, tip: '左邊是「土」，右邊是「襄」（一點一橫、兩個口、三橫兩豎、衣字底）。' },
+      { lesson: 'L7', char: '衡', zhuyin: 'ㄏㄥˊ', phrase: '平【衡】', structure: '左中右', parts: ['彳', '𠂊+田+大', '亍'], radicalGroup: null, tip: '把「行」字拆開放左右兩邊（彳＋亍），中間包著魚字頭加個「大」。' },
+      { lesson: 'L7', char: '維', zhuyin: 'ㄨㄟˊ', phrase: '【維】持', structure: '左右結構', parts: ['糸', '隹(8畫)'], radicalGroup: null, tip: '左邊是細絲「糸」，右邊是短尾鳥「隹」（注意中間有四橫喔！）。' },
+
+      // ==================== 第八課 (19字) ====================
+      { lesson: 'L8', char: '怨', zhuyin: 'ㄩㄢˋ', phrase: '埋【怨】', structure: '上下結構', parts: ['夕+卩(夗)', '心'], radicalGroup: '心部', tip: '心部家族！上面是「夕」加上單耳刀「卩」，下面是一顆「心」。' },
+      { lesson: 'L8', char: '惱', zhuyin: 'ㄋㄠˇ', phrase: '苦【惱】', structure: '左右結構', parts: ['忄(心)', '巛', '囟(亠+囗+乂)'], radicalGroup: '心部', tip: '心部家族！左邊豎心旁「忄」，右邊是三個拐「巛」加「亠」與「囟」。' },
+      { lesson: 'L8', char: '臂', zhuyin: 'ㄅㄧˋ', altZhuyin: ['ㄅㄟ'], phrase: '手【臂】', structure: '上下結構', parts: ['辟(尸+口+辛)', '月(肉)'], radicalGroup: '肉部', tip: '肉部家族！上面是「辟」（尸＋口＋辛），下面是代表身體肉部的「月」。' },
+      { lesson: 'L8', char: '膝', zhuyin: 'ㄒㄧ', phrase: '【膝】蓋', structure: '左右結構', parts: ['月(肉)', '木', '人+氺'], radicalGroup: '肉部', tip: '肉部家族！左邊是「月(肉)」，右邊上面是「木」，下面是「人」加「氺」。' },
+      { lesson: 'L8', char: '艾', zhuyin: 'ㄞˋ', altZhuyin: ['ㄧˋ'], phrase: '【艾】草', structure: '上下結構', parts: ['艹(艸)', '乂'], radicalGroup: null, tip: '上面是草字頭「艹」，下面是一撇一捺交叉的「乂」（讀ㄞˋ草，自怨自艾讀ㄧˋ）。' },
+      { lesson: 'L8', char: '枕', zhuyin: 'ㄓㄣˇ', altZhuyin: ['ㄓㄣˋ'], phrase: '【枕】頭', structure: '左右結構', parts: ['木', '冘(冖+儿)'], radicalGroup: null, tip: '古代枕頭用木頭做，左邊是「木」，右邊是「冘」（禿寶蓋加儿）。' },
+      { lesson: 'L8', char: '跌', zhuyin: 'ㄉㄧㄝˊ', phrase: '【跌】倒', structure: '左右結構', parts: ['足', '失'], radicalGroup: null, tip: '左邊是腳「足」，右邊是失誤的「失」，腳失誤踩空就跌倒了！' },
+      { lesson: 'L8', char: '焰', zhuyin: 'ㄧㄢˋ', phrase: '火【焰】', structure: '左右結構', parts: ['火', 'ク', '臼'], radicalGroup: '火部', tip: '火部家族！左邊是「火」，右邊上面是「ク」，下面是「臼」。' },
+      { lesson: 'L8', char: '熄', zhuyin: 'ㄒㄧˊ', phrase: '【熄】滅', structure: '左右結構', parts: ['火', '息(自+心)'], radicalGroup: '火部', tip: '火部家族！讓「火」去「息（休息）」，火就熄滅了。' },
+      { lesson: 'L8', char: '熾', zhuyin: 'ㄔˋ', phrase: '【熾】熱', structure: '左右結構', parts: ['火', '音', '戈'], radicalGroup: '火部', tip: '火部家族！左邊是「火」，右邊是「戠」（聲音的音＋戈），形容火勢極旺。' },
+      { lesson: 'L8', char: '炭', zhuyin: 'ㄊㄢˋ', phrase: '木【炭】', structure: '上下結構', parts: ['山', '厂', '火'], radicalGroup: '火部', tip: '火部家族！在「山」崖「厂」下燒木成「火」，就變成了木炭。' },
+      { lesson: 'L8', char: '鬚', zhuyin: 'ㄒㄩ', phrase: '鬍【鬚】', structure: '上下結構', parts: ['髟(長+彡)', '須(彡+頁)'], radicalGroup: null, tip: '上面是代表毛髮的「髟」，下面是必須的「須」。' },
+      { lesson: 'L8', char: '剝', zhuyin: 'ㄅㄛ', altZhuyin: ['ㄅㄠ'], phrase: '【剝】皮', structure: '左右結構', parts: ['彑', '氺', '刂(刀)'], radicalGroup: null, tip: '用刀子「刂」把皮削開，左邊上面是「彑」，下面是「氺」（讀ㄅㄛ或ㄅㄠ）。' },
+      { lesson: 'L8', char: '竄', zhuyin: 'ㄘㄨㄢˋ', phrase: '逃【竄】', structure: '上下結構', parts: ['穴', '鼠'], radicalGroup: null, tip: '會意字：一隻老「鼠」慌張躲進洞「穴」裡，就是逃竄！' },
+      { lesson: 'L8', char: '瞬', zhuyin: 'ㄕㄨㄣˋ', phrase: '【瞬】間', structure: '左右結構', parts: ['目', '爫+冖', '舛'], radicalGroup: null, tip: '左邊是眼睛「目」，右邊是「舜」，眼睛眨一下就是一瞬間。' },
+      { lesson: 'L8', char: '頹', zhuyin: 'ㄊㄨㄟˊ', phrase: '【頹】喪', structure: '左右結構', parts: ['禿(禾+几)', '頁'], radicalGroup: null, tip: '左邊是禿頭的「禿」（禾＋几），右邊是代表頭部的「頁」。' },
+      { lesson: 'L8', char: '飢', zhuyin: 'ㄐㄧ', phrase: '【飢】餓', structure: '左右結構', parts: ['飠(食)', '几'], radicalGroup: null, tip: '左邊是食字旁「飠」，右邊是茶几的「几」。' },
+      { lesson: 'L8', char: '裊', zhuyin: 'ㄋㄧㄠˇ', phrase: '炊煙【裊】裊', structure: '上下結構', parts: ['衣(上:亠)', '鳥(省四點)', '衣(下)'], radicalGroup: null, tip: '把「衣」拆成上下兩半，中間包著一隻「省去底下四點」的「鳥」。' },
+      { lesson: 'L8', char: '緒', zhuyin: 'ㄒㄩˋ', phrase: '思【緒】', structure: '左右結構', parts: ['糸', '者'], radicalGroup: null, tip: '左邊是絲線「糸」，右邊是作者的「者」，像絲線頭一樣千頭萬緒。' },
+
+      // ==================== 第九課 (19字) ====================
+      { lesson: 'L9', char: '簸', zhuyin: 'ㄅㄛˇ', altZhuyin: ['ㄅㄛˋ'], phrase: '顛【簸】', structure: '上下結構', parts: ['竹', '箕(其+八)', '皮'], radicalGroup: '竹部', tip: '竹部家族！上面是「竹」，下面左邊是「其＋八」，右邊是「皮」（讀ㄅㄛˇ或ㄅㄛˋ）。' },
+      { lesson: 'L9', char: '策', zhuyin: 'ㄘㄜˋ', phrase: '計【策】', structure: '上下結構', parts: ['竹', '朿(木+冂)'], radicalGroup: '竹部', tip: '竹部家族！上面是「竹」，下面是「朿」（注意中間是開口向下的冂，不是口）。' },
+      { lesson: 'L9', char: '江', zhuyin: 'ㄐㄧㄤ', phrase: '長【江】', structure: '左右結構', parts: ['氵(水)', '工'], radicalGroup: null, tip: '左邊三點水「氵」，右邊是工作的「工」。' },
+      { lesson: 'L9', char: '彌', zhuyin: 'ㄇㄧˊ', phrase: '【彌】補', structure: '左右結構', parts: ['弓', '爾'], radicalGroup: null, tip: '左邊是弓箭的「弓」，右邊是偶爾的「爾」（一＋八＋冂＋丨＋四個乂）。' },
+      { lesson: 'L9', char: '懸', zhuyin: 'ㄒㄩㄢˊ', phrase: '【懸】掛', structure: '上下結構', parts: ['縣(目+系)', '心'], radicalGroup: null, tip: '上面是縣市的「縣」，下面是一顆「心」，整顆心吊在半空中。' },
+      { lesson: 'L9', char: '寡', zhuyin: 'ㄍㄨㄚˇ', phrase: '孤家【寡】人', structure: '上下結構', parts: ['宀', '一+自', '分(八+刀)'], radicalGroup: null, tip: '寶蓋頭「宀」下面是一橫加「自」，最底下是「分」（刀字底，別寫成力）。' },
+      { lesson: 'L9', char: '勃', zhuyin: 'ㄅㄛˊ', phrase: '蓬【勃】', structure: '左右結構', parts: ['孛(十+冖+子)', '力'], radicalGroup: null, tip: '左邊是「十＋冖＋子」，右邊是力氣的「力」，充滿生氣與力量。' },
+      { lesson: 'L9', char: '棍', zhuyin: 'ㄍㄨㄣˋ', phrase: '木【棍】', structure: '左右結構', parts: ['木', '昆(日+比)'], radicalGroup: null, tip: '左邊是「木」，右邊是昆蟲的「昆」（上面日，下面比較的比）。' },
+      { lesson: 'L9', char: '糧', zhuyin: 'ㄌㄧㄤˊ', phrase: '【糧】食', structure: '左右結構', parts: ['米', '量(日+一+里)'], radicalGroup: null, tip: '左邊是稻米的「米」，右邊是數量的「量」。' },
+      { lesson: 'L9', char: '顛', zhuyin: 'ㄉㄧㄢ', phrase: '【顛】簸', structure: '左右結構', parts: ['真(十+具)', '頁'], radicalGroup: null, tip: '左邊是真假的「真」，右邊是頭頂的「頁」。' },
+      { lesson: 'L9', char: '獻', zhuyin: 'ㄒㄧㄢˋ', phrase: '奉【獻】', structure: '左右結構', parts: ['虍(虎頭)', '南', '犬'], radicalGroup: null, tip: '左邊上面是虎字頭「虍」、下面包著「南」，右邊是一隻「犬」。' },
+      { lesson: 'L9', char: '艘', zhuyin: 'ㄙㄠ', phrase: '一【艘】船', structure: '左右結構', parts: ['舟', '叟(臼+丨+又)'], radicalGroup: null, tip: '計算船隻的量詞，左邊是「舟」，右邊是老叟的「叟」。' },
+      { lesson: 'L9', char: '鎖', zhuyin: 'ㄙㄨㄛˇ', phrase: '封【鎖】', structure: '左右結構', parts: ['金', '⺌(小)', '貝'], radicalGroup: null, tip: '金屬製成，左邊是「金」，右邊上面是「⺌（小）」、下面是「貝」。' },
+      { lesson: 'L9', char: '否', zhuyin: 'ㄈㄡˇ', altZhuyin: ['ㄆㄧˇ'], phrase: '是【否】', structure: '上下結構', parts: ['不', '口'], radicalGroup: null, tip: '上面是「不」，下面是「口」，用嘴巴說不就是否定（否極泰來讀ㄆㄧˇ）。' },
+      { lesson: 'L9', char: '欠', zhuyin: 'ㄑㄧㄢˋ', phrase: '【欠】缺', structure: '上下結構', parts: ['ク', '人'], radicalGroup: null, tip: '上面是「ク」，下面是「人」，原本描繪人張大嘴巴打呵欠的樣子。' },
+      { lesson: 'L9', char: '倉', zhuyin: 'ㄘㄤ', phrase: '【倉】庫', structure: '上下結構', parts: ['人', '㔾', '口'], radicalGroup: null, tip: '上面是「人」字頭，中間是「戶」的變形，下面是「口」。' },
+      { lesson: 'L9', char: '鞏', zhuyin: 'ㄍㄨㄥˇ', phrase: '【鞏】固', structure: '上下結構', parts: ['工', '凡', '革'], radicalGroup: null, tip: '上面左邊是「工」、右邊是「凡」，下面是用皮革綁緊的「革」。' },
+      { lesson: 'L9', char: '固', zhuyin: 'ㄍㄨˋ', phrase: '堅【固】', structure: '全包圍', parts: ['囗(大口)', '古(十+口)'], radicalGroup: null, tip: '外面是四方圍起來的大口「囗」，裡面包著古代的「古」。' },
+      { lesson: 'L9', char: '鼎', zhuyin: 'ㄉㄧㄥˇ', phrase: '大名【鼎】鼎', structure: '特殊對稱', parts: ['目', '爿(左4畫)', '片(右4畫)'], radicalGroup: null, tip: '古代三足兩耳的寶器：上面是「目」，左下是「爿」，右下是「片」。' },
+
+      // ==================== 第十課 (18字) ====================
+      { lesson: 'L10', char: '傾', zhuyin: 'ㄑㄧㄥ', altZhuyin: ['ㄑㄧㄥˇ'], phrase: '【傾】聽', structure: '左右結構', parts: ['亻(人)', '匕', '頁'], radicalGroup: '人部', tip: '人部家族！人「亻」把頭「頃」斜過來專心聽（一聲ㄑㄧㄥ或三聲ㄑㄧㄥˇ皆可）。' },
+      { lesson: 'L10', char: '俐', zhuyin: 'ㄌㄧˋ', phrase: '伶【俐】', structure: '左右結構', parts: ['亻(人)', '禾', '刂(刀)'], radicalGroup: '人部', tip: '人部家族！左邊單人旁「亻」，右邊是鋒利的「利」（禾＋刂）。' },
+      { lesson: 'L10', char: '蕩', zhuyin: 'ㄉㄤˋ', phrase: '浩浩【蕩】蕩', structure: '上下結構', parts: ['艹(艸)', '氵(水)', '昜'], radicalGroup: '艸部', tip: '艸部家族！注意是上下結構：草字頭「艹」蓋在整碗「湯（氵＋昜）」上面。' },
+      { lesson: 'L10', char: '莫', zhuyin: 'ㄇㄛˋ', phrase: '一籌【莫】展', structure: '上下結構', parts: ['艹(艸)', '日', '大'], radicalGroup: '艸部', tip: '艸部家族！太陽「日」落入茂密的草叢「艹」與「大」之中。' },
+      { lesson: 'L10', char: '鉅', zhuyin: 'ㄐㄩˋ', phrase: '艱【鉅】', structure: '左右結構', parts: ['金', '巨'], radicalGroup: '金部', tip: '金部家族！左邊是「金」，右邊是巨大的「巨」。' },
+      { lesson: 'L10', char: '鑼', zhuyin: 'ㄌㄨㄛˊ', phrase: '銅【鑼】', structure: '左右結構', parts: ['金', '罒(网)', '維(糸+隹)'], radicalGroup: '金部', tip: '金部家族！左邊是金屬「金」，右邊是羅網的「羅」（罒＋糸＋隹）。' },
+      { lesson: 'L10', char: '亦', zhuyin: 'ㄧˋ', phrase: '【亦】即', structure: '上下結構', parts: ['亠', '丿+丨', '八(兩點)'], radicalGroup: null, tip: '上面一點一橫「亠」，下面中間是一撇一豎鉤，左右各加一點。' },
+      { lesson: 'L10', char: '頃', zhuyin: 'ㄑㄧㄥˇ', phrase: '公【頃】', structure: '左右結構', parts: ['匕', '頁'], radicalGroup: null, tip: '左邊是湯匙的「匕」，右邊是「頁」，注意讀音是三聲「ㄑㄧㄥˇ」。' },
+      { lesson: 'L10', char: '猶', zhuyin: 'ㄧㄡˊ', phrase: '【猶】豫', structure: '左右結構', parts: ['犭(犬)', '酋(八+酉)'], radicalGroup: null, tip: '左邊是犬部「犭」，右邊是酋長的「酋」（八＋酉）。' },
+      { lesson: 'L10', char: '墊', zhuyin: 'ㄉㄧㄢˋ', phrase: '坐【墊】', structure: '上下結構', parts: ['執(幸+丸)', '土'], radicalGroup: null, tip: '上面是執行的「執」（幸＋丸），下面是泥土的「土」。' },
+      { lesson: 'L10', char: '舀', zhuyin: 'ㄧㄠˇ', altZhuyin: ['ㄨㄞˇ'], phrase: '【舀】水', structure: '上下結構', parts: ['爫(爪)', '臼'], radicalGroup: null, tip: '用手爪「爫」從石「臼」裡面把水撈出來，就是舀水（讀ㄧㄠˇ或ㄨㄞˇ）！' },
+      { lesson: 'L10', char: '複', zhuyin: 'ㄈㄨˋ', phrase: '【複】雜', structure: '左右結構', parts: ['衤(衣)', '𠂉+日', '夂'], radicalGroup: null, tip: '有裡有外的夾層衣服引申為重複，左邊是兩點的衣字旁「衤」（別寫成示字旁）。' },
+      { lesson: 'L10', char: '勾', zhuyin: 'ㄍㄡ', altZhuyin: ['ㄍㄡˋ'], phrase: '【勾】勒', structure: '半包圍', parts: ['勹', '厶'], radicalGroup: null, tip: '外面是包字頭「勹」，裡面包著一個「厶」（讀ㄍㄡ或ㄍㄡˋ）。' },
+      { lesson: 'L10', char: '篇', zhuyin: 'ㄆㄧㄢ', phrase: '【篇】章', structure: '上下結構', parts: ['竹', '扁(戶+冊)'], radicalGroup: null, tip: '古書寫在竹簡上，上面是「竹」，下面是「扁」（戶＋冊）。' },
+      { lesson: 'L10', char: '靡', zhuyin: 'ㄇㄧˇ', altZhuyin: ['ㄇㄧˊ'], phrase: '風【靡】', structure: '半包圍', parts: ['麻(广+林)', '非'], radicalGroup: null, tip: '上面是麻煩的「麻」（广＋林），裡面下方包著是非的「非」（讀ㄇㄧˇ或ㄇㄧˊ）。' },
+      { lesson: 'L10', char: '嘖', zhuyin: 'ㄗㄜˊ', phrase: '【嘖】嘖稱奇', structure: '左右結構', parts: ['口', '責(丰+貝)'], radicalGroup: null, tip: '用嘴巴「口」發出讚嘆聲，右邊是責任的「責」。' },
+      { lesson: 'L10', char: '述', zhuyin: 'ㄕㄨˋ', phrase: '敘【述】', structure: '半包圍', parts: ['辶(辵)', '朮(木+丶)'], radicalGroup: null, tip: '裡面是「朮」（木字右上多一點），外面是綽號跑車的「辶」。' },
+      { lesson: 'L10', char: '詫', zhuyin: 'ㄔㄚˋ', phrase: '【詫】異', structure: '左右結構', parts: ['言', '宅(宀+乇)'], radicalGroup: null, tip: '左邊是「言」，右邊是住宅的「宅」（宀＋乇），表示驚訝。' },
+
+      // ==================== 第十一課 (18字) ====================
+      { lesson: 'L11', char: '涕', zhuyin: 'ㄊㄧˋ', phrase: '感激【涕】零', structure: '左右結構', parts: ['氵(水)', '弟'], radicalGroup: '水部', tip: '水部家族！眼淚與鼻水都是水，左邊是「氵」，右邊是弟弟的「弟」。' },
+      { lesson: 'L11', char: '泛', zhuyin: 'ㄈㄢˋ', phrase: '廣【泛】', structure: '左右結構', parts: ['氵(水)', '乏(丿+之)'], radicalGroup: '水部', tip: '水部家族！左邊三點水「氵」，右邊是缺乏的「乏」。' },
+      { lesson: 'L11', char: '枇', zhuyin: 'ㄆㄧˊ', phrase: '【枇】杷', structure: '左右結構', parts: ['木', '比'], radicalGroup: '木部', tip: '木部家族！果樹的一種，左邊是「木」，右邊是比較的「比」。' },
+      { lesson: 'L11', char: '杷', zhuyin: 'ㄆㄚˊ', altZhuyin: ['ㄆㄚ˙'], phrase: '枇【杷】', structure: '左右結構', parts: ['木', '巴'], radicalGroup: '木部', tip: '木部家族！左邊是「木」，右邊是下巴的「巴」（讀ㄆㄚˊ或輕聲ㄆㄚ˙）。' },
+      { lesson: 'L11', char: '斥', zhuyin: 'ㄔˋ', phrase: '訓【斥】', structure: '獨體結構', parts: ['斤', '丶(點)'], radicalGroup: null, tip: '字形像斧頭的「斤」裡面多加一點「丶」。' },
+      { lesson: 'L11', char: '肅', zhuyin: 'ㄙㄨˋ', phrase: '嚴【肅】', structure: '特殊結構', parts: ['聿(上)', '丿+丨', '米(變形)'], radicalGroup: null, tip: '上面是「聿」的上半部，中間一豎貫穿，兩側包著筆畫。' },
+      { lesson: 'L11', char: '遍', zhuyin: 'ㄅㄧㄢˋ', phrase: '普【遍】', structure: '半包圍', parts: ['辶(辵)', '扁(戶+冊)'], radicalGroup: null, tip: '裡面是「扁」，外面是代表行走的「辶」，走過每一處就是普遍。' },
+      { lesson: 'L11', char: '玄', zhuyin: 'ㄒㄩㄢˊ', phrase: '【玄】妙', structure: '上下結構', parts: ['亠', '幺'], radicalGroup: null, tip: '上面是一點一橫「亠」，下面是一束絲線「幺」。' },
+      { lesson: 'L11', char: '痘', zhuyin: 'ㄉㄡˋ', phrase: '青春【痘】', structure: '半包圍', parts: ['疒(病)', '豆'], radicalGroup: null, tip: '外面是代表疾病的病字頭「疒」，裡面是豆子的「豆」。' },
+      { lesson: 'L11', char: '腫', zhuyin: 'ㄓㄨㄥˇ', phrase: '紅【腫】', structure: '左右結構', parts: ['月(肉)', '重(千+里)'], radicalGroup: null, tip: '皮膚肌肉發炎腫大，左邊是「月(肉)」，右邊是重量的「重」。' },
+      { lesson: 'L11', char: '敷', zhuyin: 'ㄈㄨ', phrase: '【敷】藥', structure: '左右結構', parts: ['甫', '寸', '攵(攴)'], radicalGroup: null, tip: '左邊上面是「甫」、下面是「寸」，右邊是反文旁「攵」。' },
+      { lesson: 'L11', char: '央', zhuyin: 'ㄧㄤ', phrase: '中【央】', structure: '獨體結構', parts: ['冂', '大'], radicalGroup: null, tip: '一個「大」字的人站在方框「冂」的正中間，就是中央。' },
+      { lesson: 'L11', char: '瞞', zhuyin: 'ㄇㄢˊ', phrase: '隱【瞞】', structure: '左右結構', parts: ['目', '艹', '兩'], radicalGroup: null, tip: '左邊是眼睛「目」，右邊是「艹＋兩」（與滿、蹣右半相同），遮住眼睛不讓人發現。' },
+      { lesson: 'L11', char: '庭', zhuyin: 'ㄊㄧㄥˊ', phrase: '家【庭】', structure: '半包圍', parts: ['广', '廴', '壬(丿+士)'], radicalGroup: null, tip: '外面是「广」，裡面是「廷」（注意右上方是撇加士的「壬」，不是王喔！）。' },
+      { lesson: 'L11', char: '徽', zhuyin: 'ㄏㄨㄟ', phrase: '校【徽】', structure: '左中右', parts: ['彳', '山+一+糸', '攵'], radicalGroup: null, tip: '左邊是「彳」，中間是「山」加一橫與「糸」，右邊是反文旁「攵」。' },
+      { lesson: 'L11', char: '袖', zhuyin: 'ㄒㄧㄡˋ', phrase: '衣【袖】', structure: '左右結構', parts: ['衤(衣)', '由'], radicalGroup: null, tip: '衣服的手臂部分，左邊是衣字旁「衤（兩點）」，右邊是「由」。' },
+      { lesson: 'L11', char: '擤', zhuyin: 'ㄒㄧㄥˇ', phrase: '【擤】鼻涕', structure: '左右結構', parts: ['扌(手)', '鼻(自+田+廾)'], radicalGroup: null, tip: '會意字超好記：用手「扌」捏住「鼻」子用力把鼻涕清出來！' },
+      { lesson: 'L11', char: '鎂', zhuyin: 'ㄇㄟˇ', phrase: '【鎂】光燈', structure: '左右結構', parts: ['金', '美(羊+大)'], radicalGroup: null, tip: '閃光燈用的金屬元素，左邊是「金」，右邊是美麗的「美」。' },
+
+      // ==================== 第十二課 (19字) ====================
+      { lesson: 'L12', char: '拮', zhuyin: 'ㄐㄧㄝˊ', phrase: '【拮】据', structure: '左右結構', parts: ['扌(手)', '吉(士+口)'], radicalGroup: '手部', tip: '手部家族！左邊是「扌」，右邊是吉祥的「吉」（上面是士，下面是口）。' },
+      { lesson: 'L12', char: '据', zhuyin: 'ㄐㄩ', altZhuyin: ['ㄐㄩˋ'], phrase: '拮【据】', structure: '左右結構', parts: ['扌(手)', '居(尸+古)'], radicalGroup: '手部', tip: '手部家族！左邊是「扌」，右邊是居住的「居」，拮据讀一聲「ㄐㄩ」（或ㄐㄩˋ）。' },
+      { lesson: 'L12', char: '抄', zhuyin: 'ㄔㄠ', phrase: '【抄】寫', structure: '左右結構', parts: ['扌(手)', '少'], radicalGroup: '手部', tip: '手部家族！用手「扌」寫字，右邊是不少的「少」。' },
+      { lesson: 'L12', char: '撫', zhuyin: 'ㄈㄨˇ', phrase: '安【撫】', structure: '左右結構', parts: ['扌(手)', '無'], radicalGroup: '手部', tip: '手部家族！用手「扌」輕輕拍著安慰，右邊是有無的「無」。' },
+      { lesson: 'L12', char: '憊', zhuyin: 'ㄅㄟˋ', phrase: '疲【憊】', structure: '上下結構', parts: ['備(亻+艹+用)', '心'], radicalGroup: '心部', tip: '心部家族！上面是準備的「備」，下面是「心」，身心都累透了就是疲憊。' },
+      { lesson: 'L12', char: '懊', zhuyin: 'ㄠˋ', phrase: '【懊】悔', structure: '左右結構', parts: ['忄(心)', '奧(宀+釆+大)'], radicalGroup: '心部', tip: '心部家族！左邊是豎心旁「忄」，右邊是深奧的「奧」。' },
+      { lesson: 'L12', char: '悔', zhuyin: 'ㄏㄨㄟˇ', phrase: '後【悔】', structure: '左右結構', parts: ['忄(心)', '每'], radicalGroup: '心部', tip: '心部家族！左邊是豎心旁「忄」，右邊是每天的「每」。' },
+      { lesson: 'L12', char: '咳', zhuyin: 'ㄎㄜˊ', altZhuyin: ['ㄏㄞ'], phrase: '【咳】嗽', structure: '左右結構', parts: ['口', '亥'], radicalGroup: '口部', tip: '口部家族！從嘴巴「口」發出咳聲，右邊是地支「亥」（讀ㄎㄜˊ或ㄏㄞ）。' },
+      { lesson: 'L12', char: '啜', zhuyin: 'ㄔㄨㄛˋ', phrase: '【啜】泣', structure: '左右結構', parts: ['口', '叕(四個又)'], radicalGroup: '口部', tip: '口部家族！左邊是「口」，右邊是四個「又」組成的「叕」，形容抽噎哭泣。' },
+      { lesson: 'L12', char: '吁', zhuyin: 'ㄒㄩ', altZhuyin: ['ㄩ'], phrase: '長【吁】短嘆', structure: '左右結構', parts: ['口', '于'], radicalGroup: '口部', tip: '口部家族！左邊是「口」，右邊是「于」，指嘆氣（讀ㄒㄩ或ㄩ）。' },
+      { lesson: 'L12', char: '囁', zhuyin: 'ㄋㄧㄝˋ', phrase: '【囁】嚅', structure: '左右結構', parts: ['口', '聶(三個耳)'], radicalGroup: '口部', tip: '口部家族！嘴巴「口」對著三個耳朵「聶」欲言又止、小小聲說話。' },
+      { lesson: 'L12', char: '仿', zhuyin: 'ㄈㄤˇ', phrase: '模【仿】', structure: '左右結構', parts: ['亻(人)', '方'], radicalGroup: null, tip: '左邊是單人旁「亻」，右邊是方向的「方」。' },
+      { lesson: 'L12', char: '昨', zhuyin: 'ㄗㄨㄛˊ', phrase: '【昨】天', structure: '左右結構', parts: ['日', '乍'], radicalGroup: null, tip: '跟日子有關，左邊是「日」，右邊是乍看的「乍」。' },
+      { lesson: 'L12', char: '辯', zhuyin: 'ㄅㄧㄢˋ', phrase: '爭【辯】', structure: '左中右', parts: ['辛', '言', '辛'], radicalGroup: null, tip: '超重要形近字！左右兩個「辛」，中間夾著「言」（用言語爭論是非才是辯）。' },
+      { lesson: 'L12', char: '熬', zhuyin: 'ㄠˊ', altZhuyin: ['ㄠ'], phrase: '煎【熬】', structure: '上下結構', parts: ['敖(𡗗+方+攵)', '灬(四點火)'], radicalGroup: null, tip: '上面是「敖」，下面是四點火「灬」，用小火慢煮就是熬（讀ㄠˊ或ㄠ）。' },
+      { lesson: 'L12', char: '瘦', zhuyin: 'ㄕㄡˋ', phrase: '消【瘦】', structure: '半包圍', parts: ['疒(病)', '叟(臼+丨+又)'], radicalGroup: null, tip: '外面是病字頭「疒」，裡面包著老叟的「叟」（注意與第9課「艘」右半相同）。' },
+      { lesson: 'L12', char: '徒', zhuyin: 'ㄊㄨˊ', phrase: '【徒】步', structure: '左右結構', parts: ['彳', '走(土+止)'], radicalGroup: null, tip: '左邊是雙人旁「彳」，右邊是走路的「走」，只靠雙腳走路就是徒步。' },
+      { lesson: 'L12', char: '泣', zhuyin: 'ㄑㄧˋ', phrase: '哭【泣】', structure: '左右結構', parts: ['氵(水)', '立'], radicalGroup: null, tip: '流下眼淚的水，左邊是「氵」，右邊是站立的「立」。' },
+      { lesson: 'L12', char: '酣', zhuyin: 'ㄏㄢ', phrase: '【酣】睡', structure: '左右結構', parts: ['酉', '甘'], radicalGroup: null, tip: '左邊是代表酒器的「酉」，右邊是甘甜的「甘」，形容睡得香甜暢快。' }
+    ];
+
+    // Context Cloze Sentences for Mode 5 (方案D：🔍 字義偵探社) covering all 113 characters
+    const CONTEXT_SENTENCES = {
+      // L7
+      '抉': '面對人生的重要十字路口，我們必須冷靜思考後再做出【 ？ 】擇。',
+      '擇': '與其抱怨環境不好，不如選【 ？ 】積極面對每一次的挑戰。',
+      '抽': '春天來了，原本光禿禿的樹枝開始【 ？ 】出翠綠的新芽。',
+      '搔': '被蚊子叮咬的地方奇癢無比，他忍不住伸手去【 ？ 】癢。',
+      '跆': '他在道館裡認真練習【 ？ 】拳道，動作既俐落又有氣勢。',
+      '蹣': '那位老先生年紀大了，走在石子路上步履顯得有些【 ？ 】跚。',
+      '跚': '小企鵝搖搖晃晃、步履蹣【 ？ 】地走在冰原上，模樣超可愛。',
+      '芭': '外婆從果園裡摘了好幾顆又大又脆的【 ？ 】樂請大家吃。',
+      '芽': '經過春雨的滋潤，泥土裡的種子悄悄冒出了嫩綠的小【 ？ 】。',
+      '犧': '消防隊員為了保護民眾的安全，往往不惜【 ？ 】牲自己的休假時間。',
+      '牲': '許多醫護人員在疫情期間奉獻心力、犧【 ？ 】睡眠，令人敬佩。',
+      '勞': '經過一整天辛【 ？ 】的工作，爸爸一回到家就累得睡著了。',
+      '叢': '那隻受驚的小野兔一溜煙地鑽進茂密的草【 ？ 】裡不見了。',
+      '履': '登山隊員們背著沉重的裝備，步【 ？ 】維艱地往山頂前進。',
+      '灶': '在古時候的農村，家家戶戶都是用磚土砌成的爐【 ？ 】來生火煮飯。',
+      '壤': '蚯蚓會在泥土裡鑽洞，幫助農田的土【 ？ 】保持鬆軟與肥沃。',
+      '衡': '走獨木橋時一定要張開雙臂保持身體平【 ？ 】，才不會跌倒。',
+      '維': '為了【 ？ 】持良好的體能，他每天放學後都會去操場慢跑三圈。',
+      // L8
+      '怨': '遇到挫折時，一味地埋【 ？ 】別人並不能解決問題。',
+      '惱': '這道數學題想了半天還是解不出來，讓他感到十分苦【 ？ 】。',
+      '臂': '投球之前，投手先轉動手【 ？ 】做好充足的暖身運動。',
+      '膝': '弟弟在走廊奔跑時不小心跌倒，結果【 ？ 】蓋擦破皮流血了。',
+      '艾': '每到端午節，奶奶都會在門口掛上一束清香的【 ？ 】草與菖蒲。',
+      '枕': '這顆羽絨【 ？ 】頭非常柔軟，躺上去很快就能進入夢鄉。',
+      '跌': '下雨天走廊地板溼滑，走路要小心才不會【 ？ 】倒受傷。',
+      '焰': '營火晚會上，橘紅色的火【 ？ 】在黑夜中一閃一閃地跳動著。',
+      '熄': '離開教室或睡覺前，請記得把所有的電燈與火源【 ？ 】滅。',
+      '熾': '正午的陽光十分【 ？ 】熱，晒得柏油路面都快要發燙了。',
+      '炭': '冬天圍爐烤肉時，爸爸會先在烤肉架裡放進木【 ？ 】生火。',
+      '鬚': '爺爺笑起來的時候，下巴長長的白鬍【 ？ 】也會跟著一翹一翹的。',
+      '剝': '吃橘子或香蕉之前，要先用手把外面的果皮【 ？ 】開。',
+      '竄': '那隻偷吃乳酪的老鼠一見到貓咪，立刻驚慌失措地四處逃【 ？ 】。',
+      '瞬': '流星劃過夜空只是一【 ？ 】間的事，大家趕緊許下心願。',
+      '頹': '雖然這次比賽落敗了，但隊員們並沒有因此感到【 ？ 】喪氣餒。',
+      '飢': '他從早上忙到下午都沒吃飯，現在早就已經【 ？ 】腸轆轆了。',
+      '裊': '傍晚時分，山谷裡的小村莊升起了【 ？ 】裊炊煙，景色真美。',
+      '緒': '考前深呼吸三次，可以幫助我們穩定緊張紛亂的思【 ？ 】。',
+      // L9
+      '簸': '山路凹凸不平，車子一路顛【 ？ 】搖晃，讓乘客差點暈車。',
+      '策': '面對強勁的對手，教練與球員們在賽前聚在一起商討應戰計【 ？ 】。',
+      '江': '滾滾長【 ？ 】向東流去，自古以來孕育了無數的歷史故事。',
+      '彌': '為了【 ？ 】補上次粗心大意的過失，他這次花了雙倍的時間檢查。',
+      '懸': '那座吊橋高高地【 ？ 】掛在兩座山谷之間，看起來十分壯觀。',
+      '寡': '他平時沉默【 ？ 】言，但只要一開口就能說出非常有建設性的想法。',
+      '勃': '春天百花盛開、萬物生機蓬【 ？ 】，到處都充滿了朝氣。',
+      '棍': '登山客手裡拿著一根堅固的木【 ？ 】當作拐杖，支撐身體往上爬。',
+      '糧': '螞蟻在夏天勤勞地搬運食物，是為了儲存過冬所需的【 ？ 】食。',
+      '顛': '漁船在狂風巨浪中劇烈【 ？ 】簸，船長依然緊握方向盤穩定航向。',
+      '獻': '志工們無私地奉【 ？ 】自己的時間與愛心，幫助社區裡的獨居長輩。',
+      '艘': '港口裡停泊著好幾【 ？ 】巨大的貨輪，準備載運貨物出航。',
+      '鎖': '出門前一定要檢查大門有沒有上【 ？ 】，以確保居家安全。',
+      '否': '明天戶外教學是【 ？ 】會如期舉行，要看氣象局發布的天氣預報而定。',
+      '欠': '這盆植物因為長期【 ？ 】缺水分照顧，葉子已經開始枯黃了。',
+      '倉': '農夫把剛收割曬乾的稻穀，一袋一袋整齊地堆放在穀【 ？ 】裡。',
+      '鞏': '經常複習學過的生字與課文，才能【 ？ 】固我們的學習基礎。',
+      '固': '這座古老的石橋結構非常堅【 ？ 】，歷經百年風雨依然屹立不搖。',
+      '鼎': '這位大名【 ？ 】鼎的科學家今天來到學校演講，全場座無虛席。',
+      // L10
+      '傾': '當朋友難過時，安靜地【 ？ 】聽他訴說心事就是最好的陪伴。',
+      '俐': '妹妹的口齒伶【 ？ 】、反應機敏，在演講比賽中拿下了第一名。',
+      '蕩': '站在山頂遠眺浩浩【 ？ 】蕩的大海，讓人覺得心胸無比開闊。',
+      '莫': '面對這道從未見過的難題，大家一時之間都感到一籌【 ？ 】展。',
+      '鉅': '修復千年古蹟是一項非常艱【 ？ 】的工程，需要極高的耐心與技術。',
+      '鑼': '廟會遊行隊伍中，敲【 ？ 】打鼓的聲音熱鬧非凡，吸引許多人圍觀。',
+      '亦': '讀書不僅能增廣見聞，【 ？ 】能培養我們獨立思考的能力。',
+      '頃': '這座森林公園占地數十公【 ？ 】，裡面有大片綠地與生態池。',
+      '猶': '機會來臨時要勇敢把握，如果總是【 ？ 】豫不決就會錯失良機。',
+      '墊': '冬天坐在冰冷的木椅上不太舒服，可以加一塊柔軟的坐【 ？ 】。',
+      '舀': '媽媽用湯勺從大鍋子裡【 ？ 】了一碗熱騰騰的雞湯給我喝。',
+      '複': '這座迷宮的路線非常【 ？ 】雜，一不小心就會在裡面迷失方向。',
+      '勾': '畫家只用幾筆簡單的線條，就生動地【 ？ 】勒出駿馬奔馳的姿態。',
+      '篇': '這【 ？ 】散文描寫親情的文字十分感人，讀完讓人眼眶泛紅。',
+      '靡': '那首輕快活潑的流行歌曲一推出就風【 ？ 】全校，大家都在哼唱。',
+      '嘖': '魔術師精彩的表演讓台下觀眾看得目瞪口呆，紛紛【 ？ 】嘖稱奇。',
+      '述': '老師請我們用自己的話，把剛剛讀完的故事內容簡單敘【 ？ 】一遍。',
+      '詫': '聽到這個出乎意料的消息，在場的每個人都露出了【 ？ 】異的表情。',
+      // L11
+      '涕': '受到善心人士的幫助，他感動得痛哭流【 ？ 】、連聲道謝。',
+      '泛': '這本百科全書內容十分廣【 ？ 】，涵蓋了天文、地理與生物知識。',
+      '枇': '果園裡結滿了金黃色的【 ？ 】杷，吃起來酸酸甜甜真多汁。',
+      '杷': '川貝枇【 ？ 】膏具有潤喉的功效，是許多人喉嚨不適時的常備品。',
+      '斥': '因為他不顧危險在馬路上嬉戲，被爸爸嚴厲地訓【 ？ 】了一頓。',
+      '肅': '升旗典禮唱國歌時，全校師生都保持莊嚴【 ？ 】穆的態度。',
+      '遍': '智慧型手機在現代生活中已經非常普【 ？ 】，幾乎人手一機。',
+      '玄': '深邃的星空充滿了【 ？ 】妙的奧祕，吸引無數天文學家探索。',
+      '痘': '進入青春期後要注意臉部清潔與作息正常，才不容易長青春【 ？ 】。',
+      '腫': '他的腳踝因為打籃球扭傷而紅【 ？ 】起來，必須馬上冰敷休息。',
+      '敷': '護士阿姨先幫他清理傷口消毒，再細心地【 ？ 】上藥膏並包紮。',
+      '央': '廣場的正中【 ？ 】有一座美麗的噴水池，是遊客最喜歡拍照的地點。',
+      '瞞': '打破花瓶應該勇敢承認錯誤，千萬不要因為害怕受罰而隱【 ？ 】事實。',
+      '庭': '週末全家人一起在院子裡整理花草，享受溫馨的家【 ？ 】時光。',
+      '徽': '運動會進場時，班長高舉著印有班級代表圖案的班【 ？ 】走在最前面。',
+      '袖': '天氣變涼了，媽媽提醒我要把長【 ？ 】外套穿上以免著涼。',
+      '擤': '感冒流鼻水時，請用衛生紙輕輕【 ？ 】鼻涕，並把衛生紙丟進垃圾桶。',
+      '鎂': '頒獎典禮上，得獎者一走上舞台，現場立刻閃起無數耀眼的【 ？ 】光燈。',
+      // L12
+      '拮': '那段日子家裡的經濟狀況比較【 ？ 】据，因此每一分錢都要省著用。',
+      '据': '雖然生活有些拮【 ？ 】，但父母依然盡力給孩子最溫暖的照顧。',
+      '抄': '上課時把黑板上的重點【 ？ 】寫在筆記本裡，回家複習會更有印象。',
+      '撫': '小狗受到驚嚇發抖時，主人溫柔地輕拍背部安【 ？ 】牠的情緒。',
+      '憊': '連續趕了好幾天的報告，他整個人顯得疲【 ？ 】不堪，需要好好補眠。',
+      '懊': '他因為一時衝動說錯話傷了朋友的心，事後感到萬分【 ？ 】悔。',
+      '悔': '與其事後追【 ？ 】莫及，不如在一開始做決定時就考慮清楚。',
+      '咳': '最近早晚溫差大，班上有好幾位同學都出現了感冒【 ？ 】嗽的症狀。',
+      '啜': '看到感人肺腑的電影情節，坐在旁邊的觀眾忍不住小聲地【 ？ 】泣起來。',
+      '吁': '遇到困難時別總是長【 ？ 】短嘆，打起精神找方法解決才是上策。',
+      '囁': '他站在講台前緊張得面紅耳赤，嘴唇【 ？ 】嚅了半天卻說不出一句話。',
+      '仿': '這隻聰明的九官鳥非常擅長模【 ？ 】人類說話的聲音，逗得大家哈哈大笑。',
+      '昨': '【 ？ 】天已經過去了，重要的是我們今天要如何努力把握當下。',
+      '辯': '在班會討論上，雙方代表針對這個議題展開了激烈的唇槍舌劍與爭【 ？ 】。',
+      '熬': '媽媽用小火慢【 ？ 】了三個小時，才煮出這鍋香氣濃郁的蓮子湯。',
+      '瘦': '他大病初癒後整個人消【 ？ 】了一圈，需要多補充營養恢復體力。',
+      '徒': '以前沒有公車的時候，山區的孩子每天都必須【 ？ 】步走好幾公里去上學。',
+      '徒': '以前沒有公車的時候，山區的孩子每天都必須【 ？ 】步走好幾公里去上學。',
+      '泣': '迷路的小妹妹在街角傷心地哭【 ？ 】，幸好熱心的警察叔叔馬上過來幫忙。',
+      '酣': '小寶寶喝飽牛奶後，在溫暖的搖籃裡進入了甜美的【 ？ 】睡。'
+    };
+
+    // Helper: Parse any Zhuyin string (e.g. 'ㄐㄩㄝˊ' or 'ㄔㄡ') into 4 slots: [聲母, 介音, 韻母, 聲調]
+    const INITIALS_SET = new Set(['ㄅ','ㄆ','ㄇ','ㄈ','ㄉ','ㄊ','ㄋ','ㄌ','ㄍ','ㄎ','ㄏ','ㄐ','ㄑ','ㄒ','ㄓ','ㄔ','ㄕ','ㄖ','ㄗ','ㄘ','ㄙ']);
+    const MEDIALS_SET  = new Set(['ㄧ','ㄨ','ㄩ']);
+    const FINALS_SET   = new Set(['ㄚ','ㄛ','ㄜ','ㄝ','ㄞ','ㄟ','ㄠ','ㄡ','ㄢ','ㄣ','ㄤ','ㄥ','ㄦ']);
+    const TONES_SET    = new Set(['ˊ','ˇ','ˋ','˙','1','ˉ']);
+
+    function parseZhuyinToSlots(zStr) {
+      const slots = ['', '', '', '1']; // default tone is '1' (一聲)
+      if (!zStr) return slots;
+      for (const ch of zStr.trim()) {
+        if (INITIALS_SET.has(ch)) slots[0] = ch;
+        else if (MEDIALS_SET.has(ch)) slots[1] = ch;
+        else if (FINALS_SET.has(ch)) slots[2] = ch;
+        else if (TONES_SET.has(ch)) slots[3] = (ch === 'ˉ' || ch === '1') ? '1' : ch;
+      }
+      return slots;
+    }
+
+    function normalizeZhuyinSlots(slots) {
+      const toneChar = (slots[3] === '1' || slots[3] === 'ˉ' || !slots[3]) ? '' : slots[3];
+      return `${slots[0] || ''}${slots[1] || ''}${slots[2] || ''}${toneChar}`;
+    }
+
+    /*************************************************************************
+     * 2. DAQIAN ZHUYIN KEYBOARD LAYOUT (4 Rows x 10 Columns)
+     * Color-coded by Initial (聲母), Medial (介音), Final (韻母)
+     *************************************************************************/
+    const KEYBOARD_ROWS = [
+      [
+        { sym: 'ㄅ', type: 'initial', key: '1' },
+        { sym: 'ㄉ', type: 'initial', key: '2' },
+        { sym: 'ㄍ', type: 'initial', key: 'e' },
+        { sym: 'ㄐ', type: 'initial', key: 'r' },
+        { sym: 'ㄓ', type: 'initial', key: '5' },
+        { sym: 'ㄗ', type: 'initial', key: 'y' },
+        { sym: 'ㄧ', type: 'medial',  key: 'u' },
+        { sym: 'ㄚ', type: 'final',   key: '8' },
+        { sym: 'ㄞ', type: 'final',   key: '9' },
+        { sym: 'ㄢ', type: 'final',   key: '0' }
+      ],
+      [
+        { sym: 'ㄆ', type: 'initial', key: 'q' },
+        { sym: 'ㄊ', type: 'initial', key: 'w' },
+        { sym: 'ㄎ', type: 'initial', key: 'd' },
+        { sym: 'ㄑ', type: 'initial', key: 'f' },
+        { sym: 'ㄔ', type: 'initial', key: 't' },
+        { sym: 'ㄘ', type: 'initial', key: 'h' },
+        { sym: 'ㄨ', type: 'medial',  key: 'j' },
+        { sym: 'ㄛ', type: 'final',   key: 'i' },
+        { sym: 'ㄟ', type: 'final',   key: 'o' },
+        { sym: 'ㄣ', type: 'final',   key: 'p' }
+      ],
+      [
+        { sym: 'ㄇ', type: 'initial', key: 'a' },
+        { sym: 'ㄋ', type: 'initial', key: 's' },
+        { sym: 'ㄏ', type: 'initial', key: 'c' },
+        { sym: 'ㄒ', type: 'initial', key: 'v' },
+        { sym: 'ㄕ', type: 'initial', key: 'g' },
+        { sym: 'ㄙ', type: 'initial', key: 'n' },
+        { sym: 'ㄩ', type: 'medial',  key: 'm' },
+        { sym: 'ㄜ', type: 'final',   key: 'k' },
+        { sym: 'ㄠ', type: 'final',   key: 'l' },
+        { sym: 'ㄤ', type: 'final',   key: ';' }
+      ],
+      [
+        { sym: 'ㄈ', type: 'initial', key: 'z' },
+        { sym: 'ㄌ', type: 'initial', key: 'x' },
+        { sym: 'ㄖ', type: 'initial', key: 'b' },
+        { sym: 'ㄝ', type: 'final',   key: ',' },
+        { sym: 'ㄡ', type: 'final',   key: '.' },
+        { sym: 'ㄥ', type: 'final',   key: '/' },
+        { sym: 'ㄦ', type: 'final',   key: '-' }
+      ]
+    ];
+
+    // Distractor component pool for Mode 2 (部件組裝挑戰)
+    const DISTRACTOR_PARTS = [
+      '氵(水)', '扌(手)', '木', '火', '土', '金', '口', '心', '忄(心)',
+      '衤(衣)', '礻(示)', '艹(艸)', '竹', '月(肉)', '目', '日', '言', '辶(辵)',
+      '頁', '刂(刀)', '力', '贝(貝)', '欠', '隹(8畫)', '隹', '戈', '寸'
+    ];
+
+    /*************************************************************************
+     * 3. WEB AUDIO SYNTHESIZER (No external audio files needed)
+     *************************************************************************/
+    class SoundFX {
+      constructor() {
+        this.enabled = true;
+        this.ctx = null;
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) this.ctx = new AudioCtx();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+      playTone(freq, type = 'sine', duration = 0.08, vol = 0.12) {
+        if (!this.enabled) return;
+        try {
+          this.init();
+          if (!this.ctx) return;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          gain.gain.setValueAtTime(vol, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch (e) {}
+      }
+      click() { this.playTone(520, 'triangle', 0.05, 0.1); }
+      snap()  { this.playTone(680, 'sine', 0.07, 0.14); }
+      success() {
+        this.playTone(587.33, 'sine', 0.1, 0.15); // D5
+        setTimeout(() => this.playTone(880, 'sine', 0.18, 0.18), 75); // A5
+      }
+      error() {
+        this.playTone(220, 'sawtooth', 0.14, 0.12);
+        setTimeout(() => this.playTone(180, 'sawtooth', 0.18, 0.12), 90);
+      }
+    }
+    const sfx = new SoundFX();
+
+    /*************************************************************************
+     * 4. APPLICATION STATE
+     *************************************************************************/
+    let state = {
+      seat: '1',
+      lesson: 'L7',
+      mode: 1, // 1: 觀察拆字, 2: 部件組裝, 3: 拆字盲打, 4: 隕石防衛, 5: 字義偵探社, 6: 生字總複習
+      kbSize: 'medium', // 'small' | 'medium' | 'large'
+      detectiveShowTip: false,
+      reviewFilter: 'ALL',
+      reviewSearch: '',
+      maskZhuyin: false,
+      maskChar: false,
+      maskParts: false,
+      isMistakeReview: false,
+      queue: [],
+      currentIndex: 0,
+      score: 0,
+      combo: 0,
+      maxCombo: 0,
+      sessionMistakes: new Set(),
+      // Current character input state
+      inputZhuyin: ['', '', '', ''], // [聲母, 介音, 韻母, 聲調]
+      assembledParts: [], // Used in Mode 2 & Mode 5
+      mode2ReadyForZhuyin: false
+    };
+
+    // ==================== METEOR DEFENSE GAME STATE (Mode 4) ====================
+    let meteorGame = {
+      running: false,
+      paused: false,
+      speedLevel: 'slow', // 'slow' | 'normal' | 'fast'
+      includePuzzleMeteors: true,
+      timeLeft: 60,
+      hp: 5,
+      maxHp: 5,
+       meteors: [],
+      lockedId: null,
+      nextId: 1,
+      spawnTimer: 0,
+      freezeUntil: 0,
+      rafId: null,
+      countdownTimerId: null,
+      particles: [],
+      lasers: [],
+      stars: []
+    };
+
+    // Load or save mistakes per seat in localStorage
+    function getStoredMistakes(seat) {
+      try {
+        const raw = localStorage.getItem(`g6_vocab_mistakes_seat_${seat}`);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+    function saveStoredMistakes(seat, charArray) {
+      try {
+        localStorage.setItem(`g6_vocab_mistakes_seat_${seat}`, JSON.stringify(charArray));
+      } catch (e) {}
+    }
+    function addMistakeChar(charStr) {
+      state.sessionMistakes.add(charStr);
+      const list = getStoredMistakes(state.seat);
+      if (!list.includes(charStr)) {
+        list.push(charStr);
+        saveStoredMistakes(state.seat, list);
+      }
+      updateMistakeBadge();
+    }
+    function removeMistakeChar(charStr) {
+      const list = getStoredMistakes(state.seat).filter(c => c !== charStr);
+      saveStoredMistakes(state.seat, list);
+      updateMistakeBadge();
+    }
+    function updateMistakeBadge() {
+      const list = getStoredMistakes(state.seat);
+      const badge = document.getElementById('mistakeCountBadge');
+      badge.textContent = list.length;
+    }
+
+    /*************************************************************************
+     * 5. INITIALIZATION & UI RENDERING
+     *************************************************************************/
+    function initApp() {
+      // 1. Populate Seat Selector (1 to 22 for the 22 students in class)
+      const seatSelect = document.getElementById('seatSelect');
+      seatSelect.innerHTML = '';
+      for (let i = 1; i <= 22; i++) {
+        const opt = document.createElement('option');
+        opt.value = String(i);
+        opt.textContent = `${i}號`;
+        seatSelect.appendChild(opt);
+      }
+      let savedSeat = localStorage.getItem('g6_vocab_last_seat') || '1';
+      if (parseInt(savedSeat, 10) > 22) savedSeat = '1';
+      state.seat = savedSeat;
+      seatSelect.value = savedSeat;
+
+      // 2. Render On-Screen Zhuyin Keyboard
+      renderKeyboard();
+
+      // 3. Bind UI Events
+      bindEvents();
+
+      // 4. Start Lesson 7 by default
+      updateMistakeBadge();
+      loadQueue('L7', false);
+    }
+
+    function renderKeyboard() {
+      const grid = document.getElementById('phoneticGrid');
+      grid.innerHTML = '';
+
+      KEYBOARD_ROWS.forEach(row => {
+        const rowEl = document.createElement('div');
+        rowEl.className = 'grid grid-cols-10 gap-1';
+
+        row.forEach(item => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          let colorClass = 'bg-slate-700 hover:bg-slate-600 active:bg-slate-800 text-white border-slate-900';
+          let labelText = '聲母';
+          if (item.type === 'medial') {
+            colorClass = 'bg-teal-700 hover:bg-teal-600 active:bg-teal-800 text-white border-teal-900';
+            labelText = '介音';
+          } else if (item.type === 'final') {
+            colorClass = 'bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-800 text-white border-indigo-900';
+            labelText = '韻母';
+          }
+
+          btn.className = `zhuyin-key ${colorClass} rounded-lg shadow border-b-2 flex flex-col items-center justify-center relative py-0.5`;
+          btn.innerHTML = `
+            <span class="text-base sm:text-lg md:text-xl font-black leading-none">${item.sym}</span>
+            <span class="text-[8px] sm:text-[9px] opacity-65 font-semibold leading-none mt-0.5">${labelText}(${item.key.toUpperCase()})</span>
+          `;
+
+          btn.addEventListener('click', () => handlePhoneticInput(item.sym, item.type));
+          rowEl.appendChild(btn);
+        });
+
+        // If row 4 has fewer items, add a confirmation button
+        if (row.length < 10) {
+          const confirmBtn = document.createElement('button');
+          confirmBtn.type = 'button';
+          confirmBtn.className = 'zhuyin-key col-span-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-lg shadow border-b-2 border-emerald-700 flex items-center justify-center gap-1 text-xs sm:text-sm';
+          confirmBtn.innerHTML = `<span>✓ 一聲 / 確認送出</span>`;
+          confirmBtn.addEventListener('click', () => handleToneInput('1'));
+          rowEl.appendChild(confirmBtn);
+        }
+
+        grid.appendChild(rowEl);
+      });
+    }
+
+    function applyKeyboardSize() {
+      const kbSec = document.getElementById('keyboardSection');
+      const kbInner = document.getElementById('keyboardInnerWrap');
+      const label = document.getElementById('kbSizeLabel');
+      if (!kbSec || !kbInner) return;
+
+      if (state.kbSize === 'small') {
+        kbSec.className = 'w-full h-[24vh] sm:h-[23vh] bg-slate-800 text-white px-2 py-1 flex flex-col justify-between shadow-2xl z-20 shrink-0 transition-all duration-200';
+        kbInner.className = 'w-full max-w-[620px] mx-auto h-full flex flex-col justify-between gap-0.5';
+        if (label) label.textContent = '小(精簡)';
+      } else if (state.kbSize === 'large') {
+        kbSec.className = 'w-full h-[40vh] sm:h-[38vh] bg-slate-800 text-white px-2 py-1.5 flex flex-col justify-between shadow-2xl z-20 shrink-0 transition-all duration-200';
+        kbInner.className = 'w-full max-w-[880px] mx-auto h-full flex flex-col justify-between gap-1';
+        if (label) label.textContent = '大(平板)';
+      } else {
+        kbSec.className = 'w-full h-[31vh] sm:h-[29vh] bg-slate-800 text-white px-2 py-1.5 flex flex-col justify-between shadow-2xl z-20 shrink-0 transition-all duration-200';
+        kbInner.className = 'w-full max-w-[720px] mx-auto h-full flex flex-col justify-between gap-1';
+        if (label) label.textContent = '適中';
+      }
+
+      if (state.mode === 6) {
+        kbSec.classList.add('hidden');
+      }
+    }
+
+    /*************************************************************************
+     * 6. QUEUE & QUESTION LOADING
+     *************************************************************************/
+    function loadQueue(lessonKey, isMistakeMode = false) {
+      state.isMistakeReview = isMistakeMode;
+      state.lesson = lessonKey;
+      state.currentIndex = 0;
+      state.score = 0;
+      state.combo = 0;
+      state.maxCombo = 0;
+      state.sessionMistakes.clear();
+
+      let pool = [];
+      if (isMistakeMode) {
+        const mistakeChars = getStoredMistakes(state.seat);
+        pool = VOCAB_DB.filter(item => mistakeChars.includes(item.char));
+        if (pool.length === 0) {
+          setFeedback('🎉 太棒了！目前錯字本沒有生字，已為你載入本課練習。', 'emerald');
+          state.isMistakeReview = false;
+        }
+      }
+
+      if (!state.isMistakeReview) {
+        if (lessonKey === 'ALL') {
+          pool = [...VOCAB_DB].sort(() => Math.random() - 0.5).slice(0, 30);
+        } else if (lessonKey === 'RADICAL') {
+          pool = VOCAB_DB.filter(item => item.radicalGroup !== null);
+        } else {
+          pool = VOCAB_DB.filter(item => item.lesson === lessonKey);
+        }
+      }
+
+      state.queue = pool;
+      updateScoreBoard();
+      renderCurrentQuestion();
+    }
+
+    function getCurrentItem() {
+      if (state.mode === 4) {
+        const locked = getLockedMeteor();
+        return locked ? locked.vocab : null;
+      }
+      return state.queue[state.currentIndex];
+    }
+
+    function switchWorkspaceView() {
+      const stdStrip = document.getElementById('standardProgressBarStrip');
+      const qCard = document.getElementById('questionCard');
+      const meteorArena = document.getElementById('meteorArenaContainer');
+      const reviewPage = document.getElementById('reviewPageContainer');
+      const kbSection = document.getElementById('keyboardSection');
+
+      if (state.mode === 4) {
+        stdStrip.classList.add('hidden');
+        qCard.classList.add('hidden');
+        reviewPage.classList.add('hidden');
+        kbSection.classList.remove('hidden');
+        applyKeyboardSize();
+        meteorArena.classList.remove('hidden');
+        resizeMeteorCanvas();
+        resetMeteorArenaPreview();
+      } else if (state.mode === 6) {
+        stopMeteorGameLoops();
+        stdStrip.classList.add('hidden');
+        qCard.classList.add('hidden');
+        meteorArena.classList.add('hidden');
+        kbSection.classList.add('hidden'); // Hide keyboard on full review page for maximum space!
+        reviewPage.classList.remove('hidden');
+        renderReviewPage();
+      } else {
+        stopMeteorGameLoops();
+        meteorArena.classList.add('hidden');
+        reviewPage.classList.add('hidden');
+        kbSection.classList.remove('hidden');
+        applyKeyboardSize();
+        stdStrip.classList.remove('hidden');
+        qCard.classList.remove('hidden');
+        renderCurrentQuestion();
+      }
+    }
+
+    function renderCurrentQuestion() {
+      if (state.mode === 4 || state.mode === 6) {
+        switchWorkspaceView();
+        return;
+      }
+      const item = getCurrentItem();
+      if (!item) return;
+
+      // Reset current input state
+      state.inputZhuyin = ['', '', '', ''];
+      state.assembledParts = [];
+      const needsAssembly = (state.mode === 2 || state.mode === 5);
+      state.mode2ReadyForZhuyin = !needsAssembly;
+      state.detectiveShowTip = false;
+      updateZhuyinSlotsUI();
+
+      // Lesson Tag
+      const lessonNames = { L7: '第七課', L8: '第八課', L9: '第九課', L10: '第十課', L11: '第十一課', L12: '第十二課' };
+      document.getElementById('charLessonTag').textContent = state.isMistakeReview
+        ? `🔥 錯字重練 (${lessonNames[item.lesson]})`
+        : lessonNames[item.lesson];
+
+      // Radical Family Tag & Cousins
+      const radTag = document.getElementById('radicalFamilyTag');
+      const radCousins = document.getElementById('sameRadicalCousins');
+      if (item.radicalGroup) {
+        radTag.textContent = `★ 同部首：${item.radicalGroup}`;
+        radTag.classList.remove('hidden');
+        // Find cousins in same lesson
+        const cousins = VOCAB_DB
+          .filter(v => v.lesson === item.lesson && v.radicalGroup === item.radicalGroup)
+          .map(v => v.char)
+          .join('、');
+        radCousins.textContent = `本課${item.radicalGroup}家族：${cousins}`;
+        radCousins.classList.remove('hidden');
+      } else {
+        radTag.classList.add('hidden');
+        radCousins.classList.add('hidden');
+      }
+
+      // Target Character & Phrase (Handle Mode 3 & Mode 5 Mystery Mask)
+      const charDisplay = document.getElementById('targetCharDisplay');
+      const phraseDisplay = document.getElementById('phraseDisplay');
+      const charBox = document.getElementById('charBoxContainer');
+      const detBox = document.getElementById('detectiveContextBox');
+      const detSentence = document.getElementById('detectiveSentenceDisplay');
+
+      if (state.mode === 5) {
+        detBox.classList.remove('hidden');
+        const ctxStr = CONTEXT_SENTENCES[item.char] || `請根據語詞「${item.phrase.replace(item.char, '【 ？ 】')}」推理生字。`;
+        detSentence.textContent = ctxStr;
+      } else {
+        detBox.classList.add('hidden');
+      }
+
+      if (state.mode === 3 || state.mode === 5) {
+        charDisplay.textContent = state.mode === 5 ? '🕵️' : '？';
+        charDisplay.className = 'font-serif-tc text-5xl sm:text-6xl md:text-7xl font-black text-amber-500 z-10 leading-none select-none';
+        phraseDisplay.textContent = `線索詞：${item.phrase.replace(item.char, ' ？ ')}`;
+      } else {
+        charDisplay.textContent = item.char;
+        charDisplay.className = 'font-serif-tc text-6xl sm:text-7xl md:text-8xl font-black text-slate-800 z-10 leading-none select-none animate-pop';
+        phraseDisplay.textContent = `語詞：${item.phrase}`;
+      }
+
+      // Highlight box if radical group
+      if (item.radicalGroup) {
+        charBox.className = 'relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-2xl bg-amber-50/70 border-2 border-amber-400 flex items-center justify-center shadow-inner my-0.5';
+      } else {
+        charBox.className = 'relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-2xl bg-slate-50 border-2 border-slate-300 flex items-center justify-center shadow-inner my-0.5';
+      }
+
+      // Structure Badge & Tip
+      document.getElementById('structureBadge').textContent = item.structure;
+      const tipEl = document.getElementById('memoryTipDisplay');
+      tipEl.textContent = `💡 拆字記憶：${item.tip}`;
+      if (state.mode === 5 && !state.detectiveShowTip) {
+        tipEl.classList.add('hidden');
+      } else {
+        tipEl.classList.remove('hidden');
+      }
+
+      // Render Decomposition Area according to Mode
+      renderDecompositionArea(item);
+
+      // Update Progress Bar
+      const total = state.queue.length;
+      const current = state.currentIndex + 1;
+      document.getElementById('progressText').textContent = `進度 ${current} / ${total}`;
+      document.getElementById('progressBar').style.width = `${(current / total) * 100}%`;
+
+      if (state.mode === 5) {
+        setFeedback('🔍 破案第1步：讀上方句子，點選正確的「部件證物」組字！', 'amber');
+      } else if (state.mode === 2) {
+        setFeedback('🧩 第1步：請先點擊上方正確的「部件積木」組裝生字！', 'amber');
+      } else if (state.mode === 3) {
+        setFeedback('🕵️ 看部件公式猜生字，並敲擊下方注音與聲調揭曉！', 'indigo');
+      } else {
+        setFeedback('請觀察拆字結構，並點擊下方注音與聲調送出', 'slate');
+      }
+    }
+
+    /*************************************************************************
+     * 7. DECOMPOSITION AREA RENDERING (Mode 1/3 vs Mode 2/5 Interactive Assembly)
+     *************************************************************************/
+    function renderDecompositionArea(item) {
+      const container = document.getElementById('decompArea');
+      const instruction = document.getElementById('decompInstruction');
+      container.innerHTML = '';
+
+      if (state.mode === 1 || state.mode === 3) {
+        instruction.textContent = '部件拆解公式：';
+        // Show clean visual formula: [Part 1] + [Part 2] = [Char]
+        item.parts.forEach((part, idx) => {
+          const badge = document.createElement('div');
+          badge.className = 'bg-white border-2 border-indigo-300 text-indigo-900 font-black px-2.5 py-0.5 rounded-xl text-xs sm:text-sm shadow-sm flex items-center gap-1 animate-pop';
+          badge.innerHTML = `<span class="text-[10px] text-indigo-400 font-bold">部件${idx + 1}</span> <span>${part}</span>`;
+          container.appendChild(badge);
+
+          if (idx < item.parts.length - 1) {
+            const plus = document.createElement('span');
+            plus.className = 'text-slate-400 font-black text-base';
+            plus.textContent = '＋';
+            container.appendChild(plus);
+          }
+        });
+      } else if (state.mode === 2 || state.mode === 5) {
+        // Mode 2 & Mode 5: Interactive Component Assembly!
+        instruction.textContent = state.mode === 5
+          ? `🔍 證物拼圖（請選出 ${item.parts.length} 個正確部件）：`
+          : `請依序選出 ${item.parts.length} 個正確部件組裝：`;
+
+        // 1. Target Slots row
+        const slotsWrap = document.createElement('div');
+        slotsWrap.className = 'flex items-center gap-1.5 mr-2';
+        item.parts.forEach((part, idx) => {
+          const filled = state.assembledParts[idx];
+          const slotEl = document.createElement('div');
+          if (filled) {
+            slotEl.className = 'bg-emerald-600 text-white font-black px-2 py-0.5 rounded-xl text-xs sm:text-sm shadow-sm animate-pop';
+            slotEl.textContent = `✓ ${filled}`;
+          } else {
+            slotEl.className = 'bg-white border-2 border-dashed border-amber-400 text-amber-700 font-bold px-2 py-0.5 rounded-xl text-xs sm:text-sm';
+            slotEl.textContent = `部件 ${idx + 1} ?`;
+          }
+          slotsWrap.appendChild(slotEl);
+        });
+        container.appendChild(slotsWrap);
+
+        // 2. If not yet completed assembly, show shuffled candidate buttons
+        if (!state.mode2ReadyForZhuyin) {
+          if (!item._shuffledChoices) {
+            const distractors = DISTRACTOR_PARTS
+              .filter(d => !item.parts.includes(d))
+              .sort(() => Math.random() - 0.5)
+              .slice(0, 3);
+            item._shuffledChoices = [...item.parts, ...distractors].sort(() => Math.random() - 0.5);
+          }
+
+          const choicesWrap = document.createElement('div');
+          choicesWrap.className = 'flex flex-wrap items-center gap-1.5';
+          item._shuffledChoices.forEach((choice) => {
+            const alreadyPicked = state.assembledParts.includes(choice) &&
+              item.parts.filter(p => p === choice).length <= state.assembledParts.filter(p => p === choice).length;
+
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.disabled = alreadyPicked;
+            btn.className = alreadyPicked
+              ? 'bg-slate-200 text-slate-400 px-2.5 py-0.5 rounded-xl text-xs sm:text-sm font-bold cursor-not-allowed'
+              : 'bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white px-2.5 py-0.5 rounded-xl text-xs sm:text-sm font-bold shadow cursor-pointer transition';
+            btn.textContent = choice;
+            btn.addEventListener('click', () => handleComponentPick(choice, item));
+            choicesWrap.appendChild(btn);
+          });
+          container.appendChild(choicesWrap);
+        } else {
+          const doneTag = document.createElement('span');
+          doneTag.className = 'text-xs font-extrabold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-xl border border-emerald-300';
+          doneTag.textContent = state.mode === 5
+            ? '🎉 部件證物吻合！破案第2步：請敲擊下方注音揭曉生字！'
+            : '🎉 部件組裝完成！現在請敲擊下方注音！';
+          container.appendChild(doneTag);
+        }
+      }
+    }
+
+    function handleComponentPick(choice, item) {
+      const nextNeededIndex = state.assembledParts.length;
+      const expectedPart = item.parts[nextNeededIndex];
+
+      // Allow selecting parts in order OR any remaining valid part of this character
+      const remainingValidParts = [...item.parts];
+      state.assembledParts.forEach(p => {
+        const idx = remainingValidParts.indexOf(p);
+        if (idx !== -1) remainingValidParts.splice(idx, 1);
+      });
+
+      if (choice === expectedPart || remainingValidParts.includes(choice)) {
+        sfx.snap();
+        // Put in next slot
+        state.assembledParts.push(choice);
+        if (state.assembledParts.length === item.parts.length) {
+          state.mode2ReadyForZhuyin = true;
+          // Normalize order for clean display
+          state.assembledParts = [...item.parts];
+          setFeedback('✅ 拆字組裝正確！第2步：請點擊下方注音與聲調！', 'emerald');
+        }
+        renderDecompositionArea(item);
+      } else {
+        sfx.error();
+        addMistakeChar(item.char);
+        state.combo = 0;
+        updateScoreBoard();
+        setFeedback(`❌ 「${choice}」不是這個字的部件喔，再仔細看一次！`, 'rose');
+        const card = document.getElementById('questionCard');
+        card.classList.remove('animate-shake');
+        void card.offsetWidth;
+        card.classList.add('animate-shake');
+      }
+    }
+
+    /*************************************************************************
+     * 8. ZHUYIN INPUT & VALIDATION LOGIC
+     *************************************************************************/
+    function handlePhoneticInput(sym, type) {
+      if (state.mode === 4) {
+        if (!meteorGame.running || meteorGame.paused) {
+          sfx.click();
+          setMeteorFeedback('🚀 請先點擊畫面中央「啟動防衛戰」開始遊戲！', 'amber');
+          return;
+        }
+        const locked = getLockedMeteor();
+        if (!locked) return;
+        sfx.click();
+        if (type === 'initial') {
+          state.inputZhuyin[0] = (state.inputZhuyin[0] === sym) ? '' : sym;
+        } else if (type === 'medial') {
+          state.inputZhuyin[1] = (state.inputZhuyin[1] === sym) ? '' : sym;
+        } else if (type === 'final') {
+          state.inputZhuyin[2] = (state.inputZhuyin[2] === sym) ? '' : sym;
+        }
+        updateZhuyinSlotsUI();
+        return;
+      }
+
+      const item = getCurrentItem();
+      if (!item) return;
+
+      // In Mode 2 or Mode 5, require component assembly first
+      if ((state.mode === 2 || state.mode === 5) && !state.mode2ReadyForZhuyin) {
+        sfx.error();
+        setFeedback('⚠️ 請先點擊上方的「部件積木」完成組字，再打注音喔！', 'amber');
+        return;
+      }
+
+      sfx.click();
+      if (type === 'initial') {
+        state.inputZhuyin[0] = (state.inputZhuyin[0] === sym) ? '' : sym;
+      } else if (type === 'medial') {
+        state.inputZhuyin[1] = (state.inputZhuyin[1] === sym) ? '' : sym;
+      } else if (type === 'final') {
+        state.inputZhuyin[2] = (state.inputZhuyin[2] === sym) ? '' : sym;
+      }
+      updateZhuyinSlotsUI();
+    }
+
+    function handleToneInput(toneSym) {
+      if (state.mode === 4) {
+        if (!meteorGame.running || meteorGame.paused) {
+          sfx.click();
+          setMeteorFeedback('🚀 請先點擊「啟動防衛戰」開始遊戲！', 'amber');
+          return;
+        }
+        state.inputZhuyin[3] = toneSym;
+        updateZhuyinSlotsUI();
+        validateMeteorZhuyinAttack();
+        return;
+      }
+
+      const item = getCurrentItem();
+      if (!item) return;
+
+      if ((state.mode === 2 || state.mode === 5) && !state.mode2ReadyForZhuyin) {
+        sfx.error();
+        setFeedback('⚠️ 請先點擊上方的「部件積木」完成組字，再打注音喔！', 'amber');
+        return;
+      }
+
+      state.inputZhuyin[3] = toneSym;
+      updateZhuyinSlotsUI();
+      validateZhuyinSubmission();
+    }
+
+    function clearZhuyinInput() {
+      sfx.click();
+      state.inputZhuyin = ['', '', '', ''];
+      updateZhuyinSlotsUI();
+    }
+
+    function updateZhuyinSlotsUI() {
+      const ids = ['slotInitial', 'slotMedial', 'slotFinal', 'slotTone'];
+      ids.forEach((id, idx) => {
+        const el = document.getElementById(id).querySelector('.slot-val');
+        const val = state.inputZhuyin[idx];
+        el.textContent = val === '1' ? '—' : val;
+      });
+      // Also update Meteor Mode mini slots
+      const mIds = ['mSlot0', 'mSlot1', 'mSlot2', 'mSlot3'];
+      mIds.forEach((id, idx) => {
+        const el = document.getElementById(id);
+        if (el) {
+          const val = state.inputZhuyin[idx];
+          el.textContent = val === '1' ? '—' : val;
+        }
+      });
+    }
+
+    /*************************************************************************
+     * 8B. METEOR DEFENSE ARENA ENGINE (Scheme C: ☄️ 隕石防衛戰)
+     *************************************************************************/
+    function resizeMeteorCanvas() {
+      const stage = document.getElementById('meteorSkyStage');
+      const canvas = document.getElementById('meteorFxCanvas');
+      if (!stage || !canvas) return;
+      canvas.width = stage.clientWidth || 800;
+      canvas.height = stage.clientHeight || 320;
+      if (meteorGame.stars.length === 0) {
+        for (let i = 0; i < 45; i++) {
+          meteorGame.stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 1.6 + 0.5,
+            alpha: Math.random() * 0.7 + 0.3
+          });
+        }
+      }
+    }
+
+    function resetMeteorArenaPreview() {
+      stopMeteorGameLoops();
+      meteorGame.running = false;
+      meteorGame.paused = false;
+      meteorGame.meteors = [];
+      meteorGame.lockedId = null;
+      document.getElementById('meteorDomLayer').innerHTML = '';
+      document.getElementById('meteorOverlayScreen').classList.remove('hidden');
+      document.getElementById('meteorPauseBtn').classList.add('hidden');
+      document.getElementById('freezeOverlayBadge').classList.add('hidden');
+      updateMeteorHudUI();
+      updateRadarLockedUI();
+      drawMeteorFxFrame();
+    }
+
+    function startMeteorDefenseGame() {
+      sfx.init();
+      sfx.success();
+      stopMeteorGameLoops();
+      resizeMeteorCanvas();
+
+      // Ensure queue has items
+      if (!state.queue || state.queue.length === 0) {
+        loadQueue(state.lesson, false);
+      }
+
+      meteorGame.running = true;
+      meteorGame.paused = false;
+      meteorGame.timeLeft = 60;
+      meteorGame.hp = 5;
+      meteorGame.meteors = [];
+      meteorGame.particles = [];
+      meteorGame.lasers = [];
+      meteorGame.lockedId = null;
+      meteorGame.spawnTimer = 0;
+      meteorGame.freezeUntil = 0;
+
+      state.score = 0;
+      state.combo = 0;
+      state.maxCombo = 0;
+      state.sessionMistakes.clear();
+      state.inputZhuyin = ['', '', '', ''];
+      updateZhuyinSlotsUI();
+
+      document.getElementById('meteorDomLayer').innerHTML = '';
+      document.getElementById('meteorOverlayScreen').classList.add('hidden');
+      const pauseBtn = document.getElementById('meteorPauseBtn');
+      pauseBtn.classList.remove('hidden');
+      pauseBtn.textContent = '⏸ 暫停';
+
+      updateMeteorHudUI();
+      setMeteorFeedback('🎯 雷達已自動鎖定最下方隕石，請拼出注音發射！', 'emerald');
+
+      // Spawn initial meteor immediately
+      spawnOneMeteor();
+
+      // 1-second timer countdown
+      meteorGame.countdownTimerId = setInterval(() => {
+        if (!meteorGame.running || meteorGame.paused) return;
+        meteorGame.timeLeft -= 1;
+        updateMeteorHudUI();
+        if (meteorGame.timeLeft <= 0) {
+          finishMeteorDefenseGame(true);
+        }
+      }, 1000);
+
+      // Start 60fps animation loop
+      let lastTime = performance.now();
+      function loop(now) {
+        if (!meteorGame.running) return;
+        const dt = Math.min((now - lastTime) / 1000, 0.1);
+        lastTime = now;
+        if (!meteorGame.paused) {
+          updateMeteorPhysics(dt, now);
+        }
+        drawMeteorFxFrame();
+        meteorGame.rafId = requestAnimationFrame(loop);
+      }
+      meteorGame.rafId = requestAnimationFrame(loop);
+    }
+
+    function stopMeteorGameLoops() {
+      if (meteorGame.rafId) {
+        cancelAnimationFrame(meteorGame.rafId);
+        meteorGame.rafId = null;
+      }
+      if (meteorGame.countdownTimerId) {
+        clearInterval(meteorGame.countdownTimerId);
+        meteorGame.countdownTimerId = null;
+      }
+    }
+
+    function spawnOneMeteor() {
+      const stage = document.getElementById('meteorSkyStage');
+      if (!stage || state.queue.length === 0) return;
+      const stageW = stage.clientWidth || 720;
+
+      // Pick a random character from current lesson pool (avoid duplicating currently active chars if possible)
+      const activeChars = new Set(meteorGame.meteors.map(m => m.vocab.char));
+      let candidates = state.queue.filter(v => !activeChars.has(v.char));
+      if (candidates.length === 0) candidates = state.queue;
+      const vocab = candidates[Math.floor(Math.random() * candidates.length)];
+
+      // Decide if Puzzle Meteor (shows components instead of character)
+      const isPuzzle = meteorGame.includePuzzleMeteors && Math.random() < 0.35;
+
+      // Decide special power-up item (25% chance)
+      let powerUp = null; // 'freeze' | 'heal' | 'bomb'
+      const roll = Math.random();
+      if (roll < 0.10) powerUp = 'freeze';
+      else if (roll < 0.18 && meteorGame.hp < meteorGame.maxHp) powerUp = 'heal';
+      else if (roll < 0.25) powerUp = 'bomb';
+
+      // Calculate safe horizontal X position avoiding overlap
+      const meteorWidth = 128;
+      const minX = 16;
+      const maxX = Math.max(minX + 20, stageW - meteorWidth - 16);
+      let x = minX + Math.random() * (maxX - minX);
+
+      // Base speed in pixels per second based on difficulty
+      const speedMap = { slow: 22, normal: 34, fast: 50 };
+      const baseSpeed = speedMap[meteorGame.speedLevel] || 24;
+      const vy = baseSpeed * (0.9 + Math.random() * 0.25);
+
+      const id = meteorGame.nextId++;
+      const el = document.createElement('div');
+      el.dataset.id = String(id);
+
+      const mObj = {
+        id,
+        vocab,
+        isPuzzle,
+        powerUp,
+        x,
+        y: -55,
+        vy,
+        el
+      };
+
+      renderMeteorDomElement(mObj);
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!meteorGame.running || meteorGame.paused) return;
+        sfx.click();
+        meteorGame.lockedId = mObj.id;
+        state.inputZhuyin = ['', '', '', ''];
+        updateZhuyinSlotsUI();
+        refreshMeteorLockVisuals();
+      });
+
+      document.getElementById('meteorDomLayer').appendChild(el);
+      meteorGame.meteors.push(mObj);
+
+      // Ensure a target is locked
+      ensureMeteorTargetLocked();
+    }
+
+    function renderMeteorDomElement(m) {
+      let borderStyle = 'border-slate-500 bg-slate-900/95';
+      let badgeHtml = '';
+
+      if (m.powerUp === 'freeze') {
+        borderStyle = 'border-cyan-400 bg-cyan-950/95';
+        badgeHtml = `<span class="text-[10px] bg-cyan-400 text-slate-950 font-black px-1.5 py-0.2 rounded-full">❄️ 減速5秒</span>`;
+      } else if (m.powerUp === 'heal') {
+        borderStyle = 'border-rose-400 bg-rose-950/95';
+        badgeHtml = `<span class="text-[10px] bg-rose-400 text-slate-950 font-black px-1.5 py-0.2 rounded-full">❤️ 護盾+1</span>`;
+      } else if (m.powerUp === 'bomb') {
+        borderStyle = 'border-amber-400 bg-amber-950/95';
+        badgeHtml = `<span class="text-[10px] bg-amber-400 text-slate-950 font-black px-1.5 py-0.2 rounded-full">💥 雙倍震退</span>`;
+      } else if (m.isPuzzle) {
+        borderStyle = 'border-purple-400 bg-purple-950/95';
+        badgeHtml = `<span class="text-[10px] bg-purple-400 text-slate-950 font-black px-1.5 py-0.2 rounded-full">🧩 拆字2倍分</span>`;
+      }
+
+      const clozePhrase = m.vocab.phrase.replace(m.vocab.char, '？');
+      const partsFormula = m.vocab.parts.join('＋');
+
+      m.el.className = `meteor-node absolute w-32 rounded-2xl border-2 ${borderStyle} px-2.5 py-1.5 shadow-lg cursor-pointer transition-transform select-none`;
+      m.el.style.transform = `translate3d(${m.x}px, ${m.y}px, 0)`;
+
+      if (m.isPuzzle) {
+        m.el.innerHTML = `
+          <div class="flex items-center justify-between gap-1 mb-0.5">
+            ${badgeHtml}
+            <span class="text-[10px] text-purple-200 font-bold">${clozePhrase}</span>
+          </div>
+          <div class="text-xs sm:text-sm font-black text-amber-300 text-center leading-tight py-0.5 bg-slate-900/80 rounded-lg border border-purple-500/40">
+            ${partsFormula}
+          </div>
+        `;
+      } else {
+        m.el.innerHTML = `
+          <div class="flex items-center justify-between gap-1">
+            <div class="flex items-center gap-1.5">
+              <span class="font-serif-tc text-2xl sm:text-3xl font-black text-white leading-none">${m.vocab.char}</span>
+              <div class="flex flex-col text-left">
+                <span class="text-[10px] font-bold text-indigo-200 leading-tight">${clozePhrase}</span>
+                <span class="text-[9px] font-semibold text-cyan-300 leading-tight">${partsFormula}</span>
+              </div>
+            </div>
+          </div>
+          ${badgeHtml ? `<div class="mt-0.5 text-right">${badgeHtml}</div>` : ''}
+        `;
+      }
+    }
+
+    function getLockedMeteor() {
+      return meteorGame.meteors.find(m => m.id === meteorGame.lockedId) || null;
+    }
+
+    function ensureMeteorTargetLocked() {
+      if (meteorGame.meteors.length === 0) {
+        meteorGame.lockedId = null;
+        refreshMeteorLockVisuals();
+        return;
+      }
+      const current = getLockedMeteor();
+      if (!current) {
+        // Auto-select the lowest (largest y) meteor
+        const lowest = [...meteorGame.meteors].sort((a, b) => b.y - a.y)[0];
+        meteorGame.lockedId = lowest.id;
+      }
+      refreshMeteorLockVisuals();
+    }
+
+    function refreshMeteorLockVisuals() {
+      meteorGame.meteors.forEach(m => {
+        if (m.id === meteorGame.lockedId) {
+          m.el.classList.add('ring-4', 'ring-rose-500', 'scale-105', 'z-20');
+        } else {
+          m.el.classList.remove('ring-4', 'ring-rose-500', 'scale-105', 'z-20');
+        }
+      });
+      updateRadarLockedUI();
+    }
+
+    function updateRadarLockedUI() {
+      const charEl = document.getElementById('radarTargetChar');
+      const partsEl = document.getElementById('radarTargetParts');
+      const phraseEl = document.getElementById('radarTargetPhrase');
+      const locked = getLockedMeteor();
+
+      if (!locked) {
+        charEl.textContent = meteorGame.running ? '搜尋目標中...' : '等待啟動...';
+        partsEl.textContent = '拆字：—';
+        phraseEl.textContent = '語詞：—';
+        return;
+      }
+
+      const v = locked.vocab;
+      const clozePhrase = v.phrase.replace(v.char, '【？】');
+      if (locked.isPuzzle) {
+        charEl.textContent = `🧩 謎題字 [ ？ ]`;
+      } else {
+        charEl.textContent = `目標：【 ${v.char} 】`;
+      }
+      partsEl.textContent = `拆字：${v.parts.join(' ＋ ')}`;
+      phraseEl.textContent = `語詞：${locked.isPuzzle ? clozePhrase : v.phrase}`;
+    }
+
+    function updateMeteorPhysics(dt, now) {
+      const stage = document.getElementById('meteorSkyStage');
+      if (!stage) return;
+      const stageH = stage.clientHeight || 300;
+
+      // Check freeze status
+      const isFrozen = now < meteorGame.freezeUntil;
+      const freezeBadge = document.getElementById('freezeOverlayBadge');
+      if (isFrozen) {
+        freezeBadge.classList.remove('hidden');
+      } else {
+        freezeBadge.classList.add('hidden');
+      }
+
+      const speedMultiplier = isFrozen ? 0.32 : 1.0;
+
+      // Spawn timer logic
+      meteorGame.spawnTimer += dt;
+      const spawnIntervalMap = { slow: 3.6, normal: 2.7, fast: 1.95 };
+      const maxOnScreenMap = { slow: 4, normal: 5, fast: 6 };
+      const interval = spawnIntervalMap[meteorGame.speedLevel] || 3.2;
+      const maxMeteors = maxOnScreenMap[meteorGame.speedLevel] || 4;
+
+      if (meteorGame.meteors.length === 0 || (meteorGame.spawnTimer >= interval && meteorGame.meteors.length < maxMeteors)) {
+        meteorGame.spawnTimer = 0;
+        spawnOneMeteor();
+      }
+
+      // Move meteors down
+      for (let i = meteorGame.meteors.length - 1; i >= 0; i--) {
+        const m = meteorGame.meteors[i];
+        m.y += m.vy * speedMultiplier * dt;
+        m.el.style.transform = `translate3d(${m.x}px, ${m.y}px, 0)`;
+
+        // Check if hit ground
+        if (m.y + 52 >= stageH) {
+          handleMeteorHitBase(m, i);
+        }
+      }
+
+      // Update explosion particles
+      for (let i = meteorGame.particles.length - 1; i >= 0; i--) {
+        const p = meteorGame.particles[i];
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.life -= dt;
+        if (p.life <= 0) meteorGame.particles.splice(i, 1);
+      }
+
+      // Update laser beams
+      for (let i = meteorGame.lasers.length - 1; i >= 0; i--) {
+        meteorGame.lasers[i].life -= dt;
+        if (meteorGame.lasers[i].life <= 0) meteorGame.lasers.splice(i, 1);
+      }
+    }
+
+    function handleMeteorHitBase(m, index) {
+      sfx.error();
+      // Record missed character into student's mistake bank!
+      addMistakeChar(m.vocab.char);
+
+      // Spawn red impact particles
+      createExplosion(m.x + 60, m.y + 25, '#f43f5e');
+
+      // Remove DOM & array item
+      m.el.remove();
+      meteorGame.meteors.splice(index, 1);
+
+      state.combo = 0;
+      meteorGame.hp = Math.max(0, meteorGame.hp - 1);
+      updateMeteorHudUI();
+
+      const zHint = formatZhuyinString(m.vocab.zhuyin);
+      setMeteorFeedback(`💥 漏接「${m.vocab.char} (${zHint})」！已收錄至錯字本`, 'rose');
+
+      if (meteorGame.lockedId === m.id) {
+        meteorGame.lockedId = null;
+        state.inputZhuyin = ['', '', '', ''];
+        updateZhuyinSlotsUI();
+      }
+      ensureMeteorTargetLocked();
+
+      if (meteorGame.hp <= 0) {
+        finishMeteorDefenseGame(false);
+      }
+    }
+
+    function validateMeteorZhuyinAttack() {
+      const locked = getLockedMeteor();
+      if (!locked) return;
+
+      const actualNormalized = normalizeZhuyinSlots(state.inputZhuyin);
+      if (!state.inputZhuyin[0] && !state.inputZhuyin[1] && !state.inputZhuyin[2]) {
+        sfx.error();
+        setMeteorFeedback('⚠️ 請先點選注音符號，最後再點聲調發射！', 'amber');
+        state.inputZhuyin[3] = '';
+        updateZhuyinSlotsUI();
+        return;
+      }
+
+      // Check if matches locked meteor OR any other meteor currently on screen!
+      let targetMeteor = null;
+      const checkMatch = (m) => {
+        const validTargets = [m.vocab.zhuyin, ...(m.vocab.altZhuyin || [])].map(z =>
+          normalizeZhuyinSlots(parseZhuyinToSlots(z))
+        );
+        return validTargets.includes(actualNormalized);
+      };
+
+      if (checkMatch(locked)) {
+        targetMeteor = locked;
+      } else {
+        // Also allow hitting another on-screen meteor if student typed its exact Zhuyin!
+        targetMeteor = meteorGame.meteors.find(m => checkMatch(m)) || null;
+      }
+
+      if (targetMeteor) {
+        destroyMeteorWithLaser(targetMeteor);
+      } else {
+        sfx.error();
+        state.combo = 0;
+        addMistakeChar(locked.vocab.char);
+        updateMeteorHudUI();
+        setMeteorFeedback(`❌ 「${actualNormalized}」未能擊破「${locked.vocab.char}」，請重拼！`, 'rose');
+        setTimeout(() => {
+          state.inputZhuyin = ['', '', '', ''];
+          updateZhuyinSlotsUI();
+        }, 220);
+      }
+    }
+
+    function destroyMeteorWithLaser(m) {
+      sfx.success();
+      const stage = document.getElementById('meteorSkyStage');
+      const stageW = stage ? stage.clientWidth : 600;
+      const stageH = stage ? stage.clientHeight : 300;
+
+      const targetX = m.x + 64;
+      const targetY = m.y + 28;
+
+      // Add Laser Beam from bottom center turret to meteor
+      meteorGame.lasers.push({
+        x1: stageW / 2,
+        y1: stageH - 10,
+        x2: targetX,
+        y2: targetY,
+        color: m.isPuzzle ? '#c084fc' : '#38bdf8',
+        life: 0.22
+      });
+
+      // Add Particle Explosion
+      createExplosion(targetX, targetY, m.isPuzzle ? '#a855f7' : '#fbbf24');
+
+      // Score & Combo calculation
+      state.combo += 1;
+      if (state.combo > state.maxCombo) state.maxCombo = state.combo;
+      let pts = 100 + Math.min(state.combo * 15, 150);
+      if (m.isPuzzle) pts *= 2;
+
+      let statusNote = `🚀 擊破「${m.vocab.char} (${formatZhuyinString(m.vocab.zhuyin)})」+${pts}分！`;
+
+      // Apply Power-ups
+      if (m.powerUp === 'freeze') {
+        meteorGame.freezeUntil = performance.now() + 5000;
+        statusNote = `❄️ 擊破寒冰隕石「${m.vocab.char}」！全場慢動作 5 秒！`;
+      } else if (m.powerUp === 'heal') {
+        meteorGame.hp = Math.min(meteorGame.maxHp, meteorGame.hp + 1);
+        statusNote = `❤️ 擊破護盾隕石「${m.vocab.char}」！基地護盾 +1！`;
+      } else if (m.powerUp === 'bomb') {
+        pts += 150;
+        // Push back all other meteors upward
+        meteorGame.meteors.forEach(other => {
+          if (other.id !== m.id) {
+            other.y = Math.max(-40, other.y - 45);
+          }
+        });
+        statusNote = `💥 黃金爆破「${m.vocab.char}」！震退全場隕石 +${pts}分！`;
+      }
+
+      state.score += pts;
+
+      // Remove meteor
+      m.el.remove();
+      meteorGame.meteors = meteorGame.meteors.filter(item => item.id !== m.id);
+      if (meteorGame.lockedId === m.id) {
+        meteorGame.lockedId = null;
+      }
+
+      // Clear input slots for next meteor
+      state.inputZhuyin = ['', '', '', ''];
+      updateZhuyinSlotsUI();
+      updateMeteorHudUI();
+      setMeteorFeedback(statusNote, 'emerald');
+
+      // Spawn a replacement if screen is empty
+      if (meteorGame.meteors.length === 0) {
+        spawnOneMeteor();
+      } else {
+        ensureMeteorTargetLocked();
+      }
+    }
+
+    function createExplosion(x, y, color) {
+      for (let i = 0; i < 18; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 40 + Math.random() * 110;
+        meteorGame.particles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          r: 2.5 + Math.random() * 3,
+          color,
+          life: 0.45 + Math.random() * 0.25
+        });
+      }
+    }
+
+    function drawMeteorFxFrame() {
+      const canvas = document.getElementById('meteorFxCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw subtle twinkling starfield
+      meteorGame.stars.forEach(s => {
+        ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha})`;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Draw active laser beams
+      meteorGame.lasers.forEach(l => {
+        ctx.save();
+        ctx.strokeStyle = l.color;
+        ctx.lineWidth = 5;
+        ctx.shadowColor = l.color;
+        ctx.shadowBlur = 12;
+        ctx.beginPath();
+        ctx.moveTo(l.x1, l.y1);
+        ctx.lineTo(l.x2, l.y2);
+        ctx.stroke();
+        ctx.restore();
+      });
+
+      // Draw explosion particles
+      meteorGame.particles.forEach(p => {
+        ctx.save();
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = Math.max(0, p.life * 1.5);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      });
+    }
+
+    function updateMeteorHudUI() {
+      const hearts = '❤️'.repeat(meteorGame.hp) + '🖤'.repeat(Math.max(0, meteorGame.maxHp - meteorGame.hp));
+      document.getElementById('meteorHpDisplay').textContent = hearts;
+      document.getElementById('meteorTimerDisplay').textContent = `${meteorGame.timeLeft}s`;
+      document.getElementById('meteorComboDisplay').textContent = state.combo;
+      document.getElementById('meteorScoreDisplay').textContent = state.score;
+    }
+
+    function setMeteorFeedback(msg, tone = 'emerald') {
+      const el = document.getElementById('meteorRadarFeedback');
+      if (!el) return;
+      const colorMap = {
+        emerald: 'text-emerald-400',
+        rose: 'text-rose-400',
+        amber: 'text-amber-300'
+      };
+      el.className = `text-xs font-bold ml-1 min-w-[120px] text-right ${colorMap[tone] || 'text-emerald-400'}`;
+      el.textContent = msg;
+    }
+
+    function finishMeteorDefenseGame(survived) {
+      stopMeteorGameLoops();
+      meteorGame.running = false;
+      document.getElementById('meteorPauseBtn').classList.add('hidden');
+      document.getElementById('freezeOverlayBadge').classList.add('hidden');
+
+      const overlay = document.getElementById('meteorOverlayScreen');
+      const title = document.getElementById('meteorOverlayTitle');
+      const desc = document.getElementById('meteorOverlayDesc');
+      const btn = document.getElementById('startMeteorGameBtn');
+
+      if (survived) {
+        sfx.success();
+        title.textContent = '🏆 地球防衛成功！60秒完美守住！';
+        desc.innerHTML = `總戰績：<b class="text-amber-300">${state.score} 分</b> ｜ 最高連擊：<b class="text-cyan-300">${state.maxCombo}</b><br>漏接或打錯的生字已自動收錄至右上角「🔥 錯字本」！`;
+      } else {
+        sfx.error();
+        title.textContent = '💥 基地護盾耗盡！再挑戰一次！';
+        desc.innerHTML = `本次戰績：<b class="text-amber-300">${state.score} 分</b> ｜ 最高連擊：<b class="text-cyan-300">${state.maxCombo}</b><br>建議可先切換左上角「🐢 慢速」或點選「🔥 錯字本」複習部件！`;
+      }
+      btn.textContent = '🔄 再次啟動防衛戰 (60秒)';
+      overlay.classList.remove('hidden');
+
+      // Also show standard certificate modal if survived
+      if (survived) {
+        showCompletionModal();
+      }
+    }
+
+    function validateZhuyinSubmission() {
+      const item = getCurrentItem();
+      if (!item) return;
+
+      // Normalize student's input slots & compare against primary zhuyin and any altZhuyin
+      const actualNormalized = normalizeZhuyinSlots(state.inputZhuyin);
+      const validTargets = [item.zhuyin, ...(item.altZhuyin || [])].map(z =>
+        normalizeZhuyinSlots(parseZhuyinToSlots(z))
+      );
+
+      // Make sure student entered at least one phonetic symbol before submitting
+      if (!state.inputZhuyin[0] && !state.inputZhuyin[1] && !state.inputZhuyin[2]) {
+        sfx.error();
+        setFeedback('⚠️ 請先點擊下方的「注音符號」，最後再點選聲調送出喔！', 'amber');
+        state.inputZhuyin[3] = '';
+        updateZhuyinSlotsUI();
+        return;
+      }
+
+      const isCorrect = validTargets.includes(actualNormalized);
+
+      if (isCorrect) {
+        sfx.success();
+        state.combo += 1;
+        if (state.combo > state.maxCombo) state.maxCombo = state.combo;
+        state.score += 100 + Math.min(state.combo * 10, 100);
+
+        // If practicing in Mistake Review Mode and got it right, remove from stored mistakes
+        if (state.isMistakeReview) {
+          removeMistakeChar(item.char);
+        }
+
+        updateScoreBoard();
+
+        // If Mode 3 or Mode 5, reveal character with celebration!
+        if (state.mode === 3 || state.mode === 5) {
+          const charDisplay = document.getElementById('targetCharDisplay');
+          charDisplay.textContent = item.char;
+          charDisplay.className = 'font-serif-tc text-6xl sm:text-7xl md:text-8xl font-black text-emerald-600 z-10 leading-none select-none animate-pop';
+          document.getElementById('phraseDisplay').textContent = `語詞：${item.phrase}`;
+          if (state.mode === 5) {
+            const ctxStr = CONTEXT_SENTENCES[item.char] || '';
+            document.getElementById('detectiveSentenceDisplay').innerHTML =
+              ctxStr.replace('【 ？ 】', `<span class="text-emerald-700 underline font-black">【 ${item.char} 】</span>`);
+            document.getElementById('memoryTipDisplay').classList.remove('hidden');
+          }
+        }
+
+        const displayExpected = formatZhuyinString(item.zhuyin);
+        setFeedback(`🎉 答對了！「${item.char}」讀作 ${displayExpected}`, 'emerald');
+
+        // Advance to next character after short pause
+        setTimeout(() => {
+          if (state.currentIndex + 1 < state.queue.length) {
+            state.currentIndex += 1;
+            renderCurrentQuestion();
+          } else {
+            showCompletionModal();
+          }
+        }, 550);
+      } else {
+        sfx.error();
+        state.combo = 0;
+        addMistakeChar(item.char);
+        updateScoreBoard();
+
+        // Diagnose which slot differed from primary target to give clear feedback
+        const expectedSlots = parseZhuyinToSlots(item.zhuyin);
+        const actual = state.inputZhuyin;
+        const typedStr = actualNormalized || '(未輸入)';
+
+        let partError = '再仔細拼一次喔！';
+        if (actual[0] !== expectedSlots[0]) {
+          partError = expectedSlots[0] ? `「聲母」不太對喔（應有聲母）` : `這個字沒有「聲母」喔！`;
+        } else if (actual[1] !== expectedSlots[1]) {
+          partError = expectedSlots[1] ? `別漏掉或按錯「介音 (ㄧㄨㄩ)」喔！` : `這個字不需要「介音 (ㄧㄨㄩ)」喔！`;
+        } else if (actual[2] !== expectedSlots[2]) {
+          partError = expectedSlots[2] ? `「韻母」位置不對或漏掉囉！` : `這個字不需要「韻母」喔！`;
+        } else if (actual[3] !== expectedSlots[3]) {
+          partError = `注音拼對了，但「聲調」選錯囉！`;
+        }
+
+        setFeedback(`❌ 你輸入了「${typedStr}」— ${partError}`, 'rose');
+
+        const card = document.getElementById('questionCard');
+        card.classList.remove('animate-shake');
+        void card.offsetWidth;
+        card.classList.add('animate-shake');
+
+        // Reset tone slot after brief moment so student can adjust easily
+        setTimeout(() => {
+          state.inputZhuyin[3] = '';
+          updateZhuyinSlotsUI();
+        }, 350);
+      }
+    }
+
+    function formatZhuyinString(zInput) {
+      if (Array.isArray(zInput)) {
+        return normalizeZhuyinSlots(zInput);
+      }
+      return normalizeZhuyinSlots(parseZhuyinToSlots(zInput));
+    }
+
+    function setFeedback(text, color = 'slate') {
+      const banner = document.getElementById('feedbackBanner');
+      const styles = {
+        slate: 'bg-white text-slate-700 border-slate-200',
+        emerald: 'bg-emerald-600 text-white border-emerald-700 shadow',
+        rose: 'bg-rose-600 text-white border-rose-700 shadow',
+        amber: 'bg-amber-100 text-amber-900 border-amber-300',
+        indigo: 'bg-indigo-100 text-indigo-900 border-indigo-300'
+      };
+      banner.className = `text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl border text-center min-w-[180px] transition-all ${styles[color] || styles.slate}`;
+      banner.textContent = text;
+    }
+
+    function updateScoreBoard() {
+      document.getElementById('scoreDisplay').textContent = state.score;
+      document.getElementById('comboDisplay').textContent = state.combo;
+    }
+
+    /*************************************************************************
+     * 9B. DEDICATED FULL-PAGE REVIEW HUB (Mode 6: 📚 生字總複習 L7~L12)
+     *************************************************************************/
+    function renderReviewPage() {
+      const grid = document.getElementById('reviewCardsGrid');
+      const countInfo = document.getElementById('reviewCountInfo');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const lessonNames = { L7: '第七課', L8: '第八課', L9: '第九課', L10: '第十課', L11: '第十一課', L12: '第十二課' };
+      const mistakeSet = new Set(getStoredMistakes(state.seat));
+      const q = (state.reviewSearch || '').trim();
+
+      let list = VOCAB_DB.filter(item => {
+        if (state.reviewFilter === 'RADICAL') return item.radicalGroup !== null;
+        if (state.reviewFilter === 'MISTAKE') return mistakeSet.has(item.char);
+        if (state.reviewFilter !== 'ALL') return item.lesson === state.reviewFilter;
+        return true;
+      });
+
+      if (q) {
+        list = list.filter(item =>
+          item.char.includes(q) ||
+          item.phrase.includes(q) ||
+          (item.radicalGroup && item.radicalGroup.includes(q)) ||
+          item.parts.some(p => p.includes(q)) ||
+          item.tip.includes(q)
+        );
+      }
+
+      countInfo.textContent = `目前顯示：${list.length} 個生字（點擊被遮罩的欄位可單獨翻開對答案！）`;
+
+      if (list.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full bg-white rounded-2xl p-8 text-center border border-slate-200">
+            <div class="text-3xl mb-2">🎉</div>
+            <p class="font-bold text-slate-700">此篩選條件下沒有生字喔！</p>
+          </div>
+        `;
+        return;
+      }
+
+      list.forEach((item) => {
+        const isRadical = item.radicalGroup !== null;
+        const isMistake = mistakeSet.has(item.char);
+        const zStr = formatZhuyinString(item.zhuyin);
+        const altStr = (item.altZhuyin && item.altZhuyin.length > 0) ? ` / ${item.altZhuyin.join('/')}` : '';
+        const ctxSentence = CONTEXT_SENTENCES[item.char] || '';
+        const clozeSentence = ctxSentence.replace('【 ？ 】', `【${item.char}】`);
+
+        const card = document.createElement('div');
+        card.className = `${isRadical ? 'bg-amber-50/90 border-amber-300' : 'bg-white border-slate-200'} border-2 rounded-2xl p-3 shadow-sm hover:shadow-md transition flex flex-col justify-between gap-2`;
+
+        // Masked states per card
+        let charMasked = state.maskChar;
+        let zhuyinMasked = state.maskZhuyin;
+        let partsMasked = state.maskParts;
+
+        const updateCardView = () => {
+          const charBoxEl = card.querySelector('.rev-char-box');
+          const zhuyinBoxEl = card.querySelector('.rev-zhuyin-box');
+          const partsBoxEl = card.querySelector('.rev-parts-box');
+          const phraseBoxEl = card.querySelector('.rev-phrase-box');
+
+          if (charMasked) {
+            charBoxEl.textContent = '？';
+            charBoxEl.className = 'rev-char-box w-14 h-14 rounded-xl bg-amber-100 border-2 border-dashed border-amber-400 flex items-center justify-center font-serif-tc text-3xl font-black text-amber-600 shrink-0 cursor-pointer';
+            phraseBoxEl.textContent = item.phrase.replace(item.char, '【？】');
+          } else {
+            charBoxEl.textContent = item.char;
+            charBoxEl.className = 'rev-char-box w-14 h-14 rounded-xl bg-slate-100 border border-slate-300 flex items-center justify-center font-serif-tc text-3xl font-black text-slate-800 shrink-0 cursor-pointer';
+            phraseBoxEl.textContent = item.phrase;
+          }
+
+          if (zhuyinMasked) {
+            zhuyinBoxEl.textContent = '👁️ 點擊看注音';
+            zhuyinBoxEl.className = 'rev-zhuyin-box text-xs font-extrabold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-lg border border-dashed border-indigo-300 cursor-pointer';
+          } else {
+            zhuyinBoxEl.textContent = `${zStr}${altStr}`;
+            zhuyinBoxEl.className = 'rev-zhuyin-box text-base font-black text-indigo-700 cursor-pointer';
+          }
+
+          if (partsMasked) {
+            partsBoxEl.innerHTML = `<span class="text-xs font-bold text-teal-700">👁️ 點擊翻開部件拆解 (${item.parts.length}部件)</span>`;
+          } else {
+            partsBoxEl.innerHTML = `
+              <span class="text-[11px] font-bold text-slate-500">拆字：</span>
+              ${item.parts.map(p => `<span class="text-xs font-extrabold bg-white border border-indigo-200 text-indigo-900 px-2 py-0.5 rounded-md">${p}</span>`).join('<span class="text-slate-400 font-bold">+</span>')}
+            `;
+          }
+        };
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <div class="rev-char-box" title="點擊切換顯示/遮罩國字"></div>
+                <div>
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="text-[10px] font-bold bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded">${lessonNames[item.lesson]}</span>
+                    <span class="rev-zhuyin-box" title="點擊切換顯示/遮罩注音"></span>
+                    <span class="text-[10px] bg-teal-100 text-teal-800 font-bold px-1.5 py-0.5 rounded">${item.structure}</span>
+                  </div>
+                  <div class="rev-phrase-box text-xs sm:text-sm font-black text-slate-800 mt-1"></div>
+                </div>
+              </div>
+              <div class="flex flex-col items-end gap-1">
+                ${isRadical ? `<span class="text-[10px] font-extrabold bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full">★ ${item.radicalGroup}</span>` : ''}
+                ${isMistake ? `<span class="text-[10px] font-extrabold bg-rose-600 text-white px-2 py-0.5 rounded-full">🔥 易錯</span>` : ''}
+              </div>
+            </div>
+
+            <div class="rev-parts-box flex flex-wrap items-center gap-1 bg-slate-100/90 p-1.5 rounded-xl mt-2 cursor-pointer border border-slate-200/80" title="點擊切換顯示/遮罩拆字"></div>
+            <p class="text-[11px] text-slate-600 leading-snug mt-1.5">${item.tip}</p>
+            <p class="text-[11px] text-indigo-900 bg-indigo-50/70 px-2 py-1 rounded-lg mt-1 font-medium">📘 例句：${clozeSentence}</p>
+          </div>
+
+          <div class="flex items-center justify-end gap-1.5 pt-1 border-t border-slate-200/60">
+            <button type="button" class="rev-practice-btn text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-lg shadow-sm transition">
+              🎯 單字特訓
+            </button>
+          </div>
+        `;
+
+        updateCardView();
+
+        card.querySelector('.rev-char-box').addEventListener('click', () => {
+          sfx.click();
+          charMasked = !charMasked;
+          updateCardView();
+        });
+        card.querySelector('.rev-zhuyin-box').addEventListener('click', () => {
+          sfx.click();
+          zhuyinMasked = !zhuyinMasked;
+          updateCardView();
+        });
+        card.querySelector('.rev-parts-box').addEventListener('click', () => {
+          sfx.click();
+          partsMasked = !partsMasked;
+          updateCardView();
+        });
+        card.querySelector('.rev-practice-btn').addEventListener('click', () => {
+          sfx.click();
+          // Jump to Mode 1 and focus on this character's lesson & index
+          state.lesson = item.lesson;
+          document.getElementById('lessonSelect').value = item.lesson;
+          loadQueue(item.lesson, false);
+          const idx = state.queue.findIndex(q => q.char === item.char);
+          if (idx !== -1) state.currentIndex = idx;
+          // Activate Mode 1 button visually
+          document.querySelector('[data-mode="1"]').click();
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    /*************************************************************************
+     * 10. EVENT BINDINGS & PHYSICAL KEYBOARD SUPPORT
+     *************************************************************************/
+    function bindEvents() {
+      // Lesson Selector
+      document.getElementById('lessonSelect').addEventListener('change', (e) => {
+        loadQueue(e.target.value, false);
+        if (state.mode === 4) {
+          resetMeteorArenaPreview();
+        } else if (state.mode === 6) {
+          state.reviewFilter = (e.target.value === 'ALL' || e.target.value === 'RADICAL') ? e.target.value : e.target.value;
+          renderReviewPage();
+        }
+      });
+
+      // Keyboard Size Toggle (小 / 適中 / 大)
+      document.getElementById('kbSizeBtn').addEventListener('click', () => {
+        sfx.click();
+        const order = ['medium', 'small', 'large'];
+        const nextIdx = (order.indexOf(state.kbSize) + 1) % order.length;
+        state.kbSize = order[nextIdx];
+        applyKeyboardSize();
+        if (state.mode === 4) setTimeout(resizeMeteorCanvas, 220);
+      });
+
+      // Detective Mode Tip Toggle
+      document.getElementById('toggleDetectiveTipBtn').addEventListener('click', () => {
+        sfx.click();
+        state.detectiveShowTip = !state.detectiveShowTip;
+        const tipEl = document.getElementById('memoryTipDisplay');
+        if (state.detectiveShowTip) tipEl.classList.remove('hidden');
+        else tipEl.classList.add('hidden');
+      });
+
+      // Review Page Filter Buttons & Masks
+      document.querySelectorAll('.rev-filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          sfx.click();
+          state.reviewFilter = btn.dataset.revFilter;
+          document.querySelectorAll('.rev-filter-btn').forEach(b => {
+            b.className = 'rev-filter-btn px-2 py-1 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100';
+          });
+          btn.className = 'rev-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow-sm';
+          renderReviewPage();
+        });
+      });
+
+      document.getElementById('reviewSearchInput').addEventListener('input', (e) => {
+        state.reviewSearch = e.target.value;
+        renderReviewPage();
+      });
+
+      document.getElementById('maskZhuyinBtn').addEventListener('click', (e) => {
+        sfx.click();
+        state.maskZhuyin = !state.maskZhuyin;
+        e.currentTarget.className = state.maskZhuyin
+          ? 'px-2 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow-sm transition'
+          : 'px-2 py-1 rounded-lg text-xs font-bold bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 transition';
+        renderReviewPage();
+      });
+
+      document.getElementById('maskCharBtn').addEventListener('click', (e) => {
+        sfx.click();
+        state.maskChar = !state.maskChar;
+        e.currentTarget.className = state.maskChar
+          ? 'px-2 py-1 rounded-lg text-xs font-bold bg-amber-600 text-white shadow-sm transition'
+          : 'px-2 py-1 rounded-lg text-xs font-bold bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 transition';
+        renderReviewPage();
+      });
+
+      document.getElementById('maskPartsBtn').addEventListener('click', (e) => {
+        sfx.click();
+        state.maskParts = !state.maskParts;
+        e.currentTarget.className = state.maskParts
+          ? 'px-2 py-1 rounded-lg text-xs font-bold bg-teal-600 text-white shadow-sm transition'
+          : 'px-2 py-1 rounded-lg text-xs font-bold bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 transition';
+        renderReviewPage();
+      });
+
+      // Seat Selector
+      document.getElementById('seatSelect').addEventListener('change', (e) => {
+        state.seat = e.target.value;
+        localStorage.setItem('g6_vocab_last_seat', state.seat);
+        updateMistakeBadge();
+        if (state.mode === 6) renderReviewPage();
+      });
+
+      // Mode Buttons (1, 2, 3, 4, 5, 6)
+      document.querySelectorAll('.mode-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          sfx.click();
+          state.mode = parseInt(btn.dataset.mode, 10);
+          document.querySelectorAll('.mode-btn').forEach(b => {
+            const m = b.dataset.mode;
+            if (m === '4') {
+              b.className = 'mode-btn px-2 py-1 rounded-lg text-xs font-bold transition text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-200';
+            } else if (m === '5') {
+              b.className = 'mode-btn px-2 py-1 rounded-lg text-xs font-bold transition text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200';
+            } else if (m === '6') {
+              b.className = 'mode-btn px-2.5 py-1 rounded-lg text-xs font-bold transition text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300';
+            } else {
+              b.className = 'mode-btn px-2 py-1 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900';
+            }
+          });
+          if (state.mode === 4) {
+            btn.className = 'mode-btn px-2 py-1 rounded-lg text-xs font-bold transition bg-purple-600 text-white shadow-sm';
+          } else if (state.mode === 5) {
+            btn.className = 'mode-btn px-2 py-1 rounded-lg text-xs font-bold transition bg-amber-500 text-slate-950 shadow-sm';
+          } else if (state.mode === 6) {
+            btn.className = 'mode-btn px-2.5 py-1 rounded-lg text-xs font-bold transition bg-emerald-600 text-white shadow-sm';
+          } else {
+            btn.className = 'mode-btn px-2 py-1 rounded-lg text-xs font-bold transition bg-indigo-600 text-white shadow-sm';
+          }
+          switchWorkspaceView();
+        });
+      });
+
+      // Meteor Defense Controls (Mode 4)
+      document.getElementById('startMeteorGameBtn').addEventListener('click', () => {
+        startMeteorDefenseGame();
+      });
+
+      document.querySelectorAll('.meteor-speed-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          sfx.click();
+          meteorGame.speedLevel = btn.dataset.speed;
+          document.querySelectorAll('.meteor-speed-btn').forEach(b => {
+            b.className = 'meteor-speed-btn px-2 py-0.5 rounded-md text-slate-300 hover:text-white transition';
+          });
+          btn.className = 'meteor-speed-btn px-2 py-0.5 rounded-md bg-purple-600 text-white transition';
+        });
+      });
+
+      document.getElementById('puzzleMeteorToggle').addEventListener('change', (e) => {
+        meteorGame.includePuzzleMeteors = e.target.checked;
+      });
+
+      document.getElementById('meteorPauseBtn').addEventListener('click', (e) => {
+        if (!meteorGame.running) return;
+        sfx.click();
+        meteorGame.paused = !meteorGame.paused;
+        e.currentTarget.textContent = meteorGame.paused ? '▶ 繼續' : '⏸ 暫停';
+      });
+
+      window.addEventListener('resize', () => {
+        if (state.mode === 4) resizeMeteorCanvas();
+      });
+
+      // Tone Keys
+      document.querySelectorAll('.tone-key').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          handleToneInput(btn.dataset.tone);
+        });
+      });
+
+      // Backspace / Clear Key
+      document.getElementById('backspaceKey').addEventListener('click', clearZhuyinInput);
+
+      // Hint Button
+      document.getElementById('hintBtn').addEventListener('click', () => {
+        const item = getCurrentItem();
+        if (!item) return;
+        sfx.click();
+        addMistakeChar(item.char); // Mark for review if hint needed
+        const zStr = formatZhuyinString(item.zhuyin);
+        setFeedback(`💡 提示：「${item.char}」的注音是 【 ${zStr} 】`, 'amber');
+      });
+
+      // Skip Button
+      document.getElementById('skipBtn').addEventListener('click', () => {
+        sfx.click();
+        if (state.currentIndex + 1 < state.queue.length) {
+          state.currentIndex += 1;
+          renderCurrentQuestion();
+        } else {
+          showCompletionModal();
+        }
+      });
+
+      // Mistake Review Mode Button
+      document.getElementById('mistakeModeBtn').addEventListener('click', () => {
+        sfx.click();
+        const list = getStoredMistakes(state.seat);
+        if (list.length === 0) {
+          setFeedback('👏 目前座號沒有錯字紀錄喔！繼續保持！', 'emerald');
+          return;
+        }
+        loadQueue(state.lesson, true);
+      });
+
+      // Dictionary Modal
+      document.getElementById('openDictBtn').addEventListener('click', () => {
+        sfx.click();
+        openDictionaryModal();
+      });
+      document.getElementById('closeDictBtn').addEventListener('click', () => {
+        document.getElementById('dictModal').classList.add('hidden');
+      });
+
+      // Result Modal Buttons
+      document.getElementById('retryAllBtn').addEventListener('click', () => {
+        document.getElementById('resultModal').classList.add('hidden');
+        loadQueue(state.lesson, false);
+      });
+      document.getElementById('practiceMistakesFromModalBtn').addEventListener('click', () => {
+        document.getElementById('resultModal').classList.add('hidden');
+        loadQueue(state.lesson, true);
+      });
+      document.getElementById('closeResultModalBtn').addEventListener('click', () => {
+        document.getElementById('resultModal').classList.add('hidden');
+      });
+
+      // Sound Toggle
+      document.getElementById('soundToggleBtn').addEventListener('click', (e) => {
+        sfx.enabled = !sfx.enabled;
+        e.currentTarget.textContent = sfx.enabled ? '🔊' : '🔇';
+      });
+
+      // Physical Keyboard Support (Standard Taiwanese Daqian Layout)
+      window.addEventListener('keydown', (e) => {
+        if (e.ctrlKey || e.altKey || e.metaKey) return;
+        const k = e.key.toLowerCase();
+
+        if (k === 'backspace' || k === 'escape') {
+          e.preventDefault();
+          clearZhuyinInput();
+          return;
+        }
+        if (k === ' ' || k === 'enter') {
+          e.preventDefault();
+          handleToneInput('1');
+          return;
+        }
+        const toneMap = { '6': 'ˊ', '3': 'ˇ', '4': 'ˋ', '7': '˙' };
+        if (toneMap[k]) {
+          e.preventDefault();
+          handleToneInput(toneMap[k]);
+          return;
+        }
+
+        // Check phonetic keys
+        for (const row of KEYBOARD_ROWS) {
+          const found = row.find(item => item.key === k);
+          if (found) {
+            e.preventDefault();
+            handlePhoneticInput(found.sym, found.type);
+            break;
+          }
+        }
+      });
+    }
+
+    window.onload = initApp;
+  </script>
+</body>
+</html>
